@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="css/estilos.css"/>
     <script src="js/jquery-3.6.4.min.js"></script>
 </head>
-<body id="indexBody">
+<body id="indexBody"> 
     <div class="borderForm">
         <!-- Formulario de acceso-->
         <form id="formAcceso" name="form" action="acceso.php" method="post">

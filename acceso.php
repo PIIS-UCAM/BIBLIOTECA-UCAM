@@ -10,7 +10,7 @@
     session_start();
     // Consultas
     $correo=mysqli_query($connect, "SELECT email FROM usuario WHERE email='$email';");
-    $comprobar_correo= mysqli_fetch_array($correo); 
+    $comprobar_correo= mysqli_fetch_array($correo);  
     $nombre= mysqli_query($connect, "SELECT nombre FROM usuario u WHERE u.email='$email' AND u.contrasenia='$pass';") or die(mysqli_error($connect));
     $nombreUsuario= mysqli_fetch_array($nombre);
 
@@ -29,7 +29,7 @@
 			}else{
 				if ($_POST['email'] == "bibliotecarioriginal@gmail.com") {
 					if ($_POST['password'] == "1234") {
-						
+						 
 						if ($_POST['remember'] && !empty($_POST['remember'])) {
 							setcookie("emailU", $_POST['email'], time()+1576800);
 							setcookie("passU", $_POST['password'], time()+1576800);
@@ -56,7 +56,7 @@
                         echo '<script>alert("👋😀 ¡BIENVENID@, '.$_SESSION['usuario'].'!")</script>';
                         echo "<script>windows.location('categorias.php');</script>";
                         
-?>
+?> 
                         <script type="text/javascript">
                             document.getElementById("usuario").innerHTML = '<?php echo $_SESSION['usuario']; ?>';
                             document.getElementById('salir').innerHTML = 'Salir';
