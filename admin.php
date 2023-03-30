@@ -14,23 +14,32 @@
 	background-image: url('rsc/imgs/bibliotecaucam.png');
 	background-repeat: no-repeat;
 	background-position-x: center;
-	background-position-y: center;
+	background-position-y: center;   
 	background-size: 50rem;
 	background-color: FFE633;
 }
 
 
-</style>
+</style> 
 
-
+ 
 </head>
 
 <body>
+ 
+<nav class="menu"> 
+  <ul>
+    <li><a href="acceso.php">Acceso</a></li>
+    <li><a href="index.php">Index</a></li>
+    <li><a href="libros.php">Libros</a></li>
+	<li><a href="usuarios.php">Usuarios</a></li>
+	<li><a href="AltayBajaUsuario.php">Alta/Baja Usuarios</a></li>
+  </ul>
+  </ul>
+</nav>
 
-<a href="libros.php"><button >Libros UCAM</button></a> <br><br>
-<a href="usuarios.php"><button>Usuarios UCAM</button></a>
 
-
+ 
 </body>
 
 </html> 
