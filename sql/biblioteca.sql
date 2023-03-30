@@ -20,7 +20,7 @@ CREATE TABLE Libro (
 
 CREATE TABLE Usuario(
  
-    id INT (11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id INT (11) PRIMARY KEY AUTO_INCREMENT NOT NULL, 
     Nombre Varchar (250) NOT NULL,
     DNI Varchar (250) NOT NULL,
     Apellidos Varchar(250) NOT NULL,

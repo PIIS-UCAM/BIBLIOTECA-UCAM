@@ -26,7 +26,7 @@
             <a style="font-size: 12px; color: #00427b;" href="registro.php"><b>¿<u>No estás registrado</u>?</b></a><br>
             <a style="font-size: 12px; color: #00427b;" href="olvidado.php">¿<u>Has olvidado tu contraseña</u>?</a>
         </form>
-    </div>
+    </div> 
 
 	<script type="text/javascript">
         document.getElementById("acceso").innerHTML = '<?php echo "Hola "; ?>';
@@ -39,7 +39,7 @@
             if (seccion.style.display === "none") {
                 seccion.style.display = "block";
 
-            } else {
+            } else { 
                 seccion.style.display = "none";
             }
         }

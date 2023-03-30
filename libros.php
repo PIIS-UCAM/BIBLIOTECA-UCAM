@@ -12,7 +12,7 @@
 		<meta charset="utf-8">
 		<style type="text/css">
 			tbody tr:nth-child(odd){ 
-				background: #eac633;
+				background: #eac633; 
 			}
 			
 			tbody tr:nth-child(even){
@@ -38,10 +38,10 @@
 				<input required type="text" name="isbnOid" placeholder="ISBN o ID">
 				<input type="submit" name="removeLibro" value="Eliminar" onclick="remove()">
 			</form>
-			<?php
+			<?php 
 				$sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libro";
 				$resultado = $connect->query($sql) or die(mysqli_error($connect));
-			?>
+			?> 
 			<br>
 				<table border="1px solid black" cellspacing="0">
 					<thead style="background-color: #4d8cf2;">
@@ -49,7 +49,7 @@
 						<th>Título</th>
 						<th>Autor</th>
 						<th>Género</th>
-						<th>Editorial</th>
+						<th>Editorial</th> 
 						<th>Número de páginas</th>
 						<th>ISBN</th>
 						<th>Stock</th>
