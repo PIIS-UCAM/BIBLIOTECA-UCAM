@@ -3,8 +3,7 @@
 	// echo "<div style='float: left'>Volver a la página principal:<br><br><br><br>  <a href='' onclick='javascript:window.history.back(-1); return false;'><img class='option' src='rsc/imgs/casa.png' /></a></div>";
 ?>
 
-
-<html class="photo">
+<html>
 	<head>
 		
 		<title>Bienvenido!</title>
@@ -52,13 +51,22 @@
 		<nav class="menu"> 
 			<ul>
 				<li><a href="index.php">Página de inicio</a></li>
-				<li id="pagLibros"><a href="libros.php">Libros</a></li>
-				<li id="pagUsuarios"><a href="usuarios.php">Usuarios</a></li>
+				<li id=""><a href="">Libros</a></li>
 			</ul>
 		</nav>
+        
+        <form action="">
+            <p>Confirmacion de reserva de libros : <input type="checkbox" id="reserva" name="checkBoxPermisos"></p>
+        </form>
 
+        <script type="text/javascript">
+				
+                if(document.getElementById('reserva').checked){ 
+					alert('Libro reservado');
+				}
 
-	
+		</script> 
+
 	</body>
 
 </html> 

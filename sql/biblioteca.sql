@@ -1,11 +1,15 @@
+CREATE USER 'bibliotecario'@'localhost' IDENTIFIED BY '1234';
+
+GRANT ALL PRIVILEGES ON . TO 'bibliotecario'@'localhost' WITH GRANT OPTION;
+
 DROP DATABASE IF EXISTS biblioteca;
 
-    CREATE DATABASE biblioteca;
+CREATE DATABASE biblioteca;
 
 USE biblioteca;
 
 
-CREATE TABLE Libro (
+CREATE TABLE Libro(
 
     id INT (11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     Titulo Varchar (250) NOT NULL,
@@ -13,11 +17,18 @@ CREATE TABLE Libro (
     Editorial Varchar (250) NOT NULL, 
     Genero Varchar (250) NOT NULL,
     Stock INT (3) NOT NULL,
-    reserva datetime NOT NULL, 
     Numero_paginas Varchar (1000),
     ISBN Varchar (250) NOT NULL 
 );  
+
+CREATE TABLE Reserva(
  
+    id INT (11) PRIMARY KEY AUTO_INCREMENT NOT NULL, 
+    id_libro INT FOREIGN KEY REFERENCES Libro (id),
+    id_usuario INT FOREIGN KEY REFERENCES Usuario (id),
+    fecha_reserva datetime NOT NULL
+
+);
  
 CREATE TABLE Usuario(
  
@@ -28,5 +39,5 @@ CREATE TABLE Usuario(
     Permisos Boolean NOT NULL,
     Fecha_de_nacimiento Varchar (250) NOT NULL, 
     Email Varchar (250) NOT NULL,
-Contrasenia Varchar (250) NOT NULL
+    Contrasenia Varchar (250) NOT NULL
 );      

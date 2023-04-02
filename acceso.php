@@ -2,14 +2,14 @@
     //Acceso usuarios registrados
     error_reporting(E_ALL ^ E_NOTICE);
     // Prevenir inyecciones a la base de datos
-    $email = md5($_POST['email']);
+    $email = $_POST['email'];
     $pass = md5($_POST['password']);
 
     include("conexion.php");
     // Inicio de variables de sesión
     session_start();
     // Consultas
-    $correo=mysqli_query($connect, "SELECT email FROM usuario WHERE email='$email';");
+    $correo=mysqli_query($connect, "SELECT Email FROM usuario WHERE Email='$email';");
     $comprobar_correo= mysqli_fetch_array($correo);  
     $nombre= mysqli_query($connect, "SELECT nombre FROM usuario u WHERE u.email='$email' AND u.contrasenia='$pass';") or die(mysqli_error($connect));
     $nombreUsuario= mysqli_fetch_array($nombre);
@@ -50,11 +50,12 @@
                             setcookie("emailU", $_POST['email'], time()+1576800);
                             setcookie("passU", $_POST['password'], time()+1576800);
                         }
+						
                         $_SESSION['email'] = $_POST['email'];
                         $_SESSION['usuario'] = $nombreUsuario['nombre'];
                         include('conexion.php');
                         echo '<script>alert("👋😀 ¡BIENVENID@, '.$_SESSION['usuario'].'!")</script>';
-                        echo "<script>windows.location('categorias.php');</script>";
+                        echo "<script>window.location = 'biblioteca.php';</script>";
                         
 ?> 
                         <script type="text/javascript">

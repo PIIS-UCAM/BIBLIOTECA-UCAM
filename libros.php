@@ -18,6 +18,10 @@
 			tbody tr:nth-child(even){
 				background: white;
 			}
+
+			#pagLibros {
+				background-color: #F5B003;
+			}
 		</style>
 	</head>
 	<body> 
@@ -34,15 +38,8 @@
 				<input required type="number" name="stock" placeholder="Stock"><br>
 				<input required type="date"  name="reserva"><br>
 				<input type="submit" name="addLibro" value="Añadir" onclick="add()"><br><br>
-				<p>Confirmacion de reserva de libros : <input type="checkbox" id="reserva" name="checkBoxPermisos"></p>
+				
 			</form>
-			<script type="text/javascript">
-				if(document.getElementById('reserva').checked){ 
-					alert('Libro reservado');
-				}
-
-			</script> 
-
 
 			<form name="form" action="admin_consultas.php" method="POST">
 				<input required type="text" name="isbnOid" placeholder="ISBN o ID">
