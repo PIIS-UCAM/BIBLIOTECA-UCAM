@@ -12,6 +12,33 @@
 			#pagUsuarios {
 				background-color: #F5B003;
 			}
+
+			.boton_alta{
+				text-decoration: none;
+				font-weight: 10px;
+				font-size: 15px;
+				color: #ffffff;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 30px;
+				padding-right: 30px;
+				background-color: #005BBB;
+				border: 3px solid black;
+			} 
+
+			.boton_baja{
+				text-decoration: none;
+				font-weight: 10px;
+				font-size: 15px;
+				color: #ffffff;
+				padding-bottom: 5px;
+				padding-top: 5px;
+				padding-left: 30px; 
+				padding-right: 30px;
+				background-color: #F5B003;
+				border: 3px solid black; 
+			}
+ 
 		</style>
 	</head>
 	<body>
@@ -26,11 +53,11 @@
 				<input required type="email" name="email" placeholder="Correo"><br>
 				<input required type="text" name="contrasenia" placeholder="Contraseña"><br>
 				<p>Conceder permisos de administrador/bibliotecario: <input type="checkbox" name="checkBoxPermisos"></p>
-				<input type="submit" name="addUsuario" value="Alta" onclick="add()"><br><br>
+				<input type="submit" name="addUsuario" class="boton_alta" value="Alta" onclick="add()"><br><br>
 			</form>
 			<form name="form" action="admin_consultas.php" method="POST">
 				<input required type="text" name="dniOid" placeholder="DNI o ID del usuario">
-				<input type="submit" name="removeUsuario" style="background-color: red;" value="Eliminar" onclick="remove()">
+				<input type="submit" name="removeUsuario" class="boton_baja" value="Eliminar" onclick="remove()">
 			</form>
 			<?php
 				$sql = "SELECT id, Nombre, Apellidos, DNI, Fecha_de_nacimiento, Permisos, Email, Contrasenia FROM Usuario";

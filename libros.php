@@ -22,7 +22,34 @@
 			#pagLibros {
 				background-color: #F5B003;
 			}
-		</style>
+
+			.añadir_libro{
+				text-decoration: none;
+				font-weight: 10px;
+				font-size: 15px;
+				color: #ffffff;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 30px;
+				padding-right: 30px;
+				background-color: #005BBB;
+				border: 3px solid black;
+			}	
+
+				.quitar_libro{
+					text-decoration: none;
+				font-weight: 10px;
+				font-size: 15px;
+				color: #ffffff;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 30px;
+				padding-right: 30px;
+				background-color: #F5B003;
+				border: 3px solid black;
+				}
+
+		</style> 
 	</head>
 	<body> 
 		<!--Libros-->
@@ -36,14 +63,14 @@
 				<input required type="text" name="editorial" placeholder="Editorial"><br>
 				<input required type="number" name="numpags" placeholder="Número de páginas"><br>
 				<input required type="number" name="stock" placeholder="Stock"><br>
-				<input required type="date"  name="reserva"><br>
-				<input type="submit" name="addLibro" value="Añadir" onclick="add()"><br><br>
+				<input required type="date"  name="reserva"><br><br>
+				<input type="submit" name="addLibro" class="añadir_libro" value="Añadir" onclick="add()"><br><br>
 				
 			</form>
 
 			<form name="form" action="admin_consultas.php" method="POST">
 				<input required type="text" name="isbnOid" placeholder="ISBN o ID">
-				<input type="submit" name="removeLibro" value="Eliminar" onclick="remove()"> 
+				<input type="submit" name="removeLibro" class="quitar_libro" value="Eliminar" onclick="remove()"> 
 			</form>
 			<?php 
 				$sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, reserva, ISBN FROM libro"; 
