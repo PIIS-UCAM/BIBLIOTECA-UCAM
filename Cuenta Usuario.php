@@ -28,14 +28,14 @@
     </style>
 
 </head>
-
+ 
 <body class="gradient">
      
-    <div>      
+    <div>       
     <h3>Busqueda de Libros</h3>
 
     <p>
-      Búsqueda de libro : <input type="search" name="busquedalibro" size="12" maxlength="4"> 
+      Búsqueda de libro : <input type="search" name="busquedalibro" size="17" maxlength="20"> 
     </p>
 
     <input type="submit" class="btn_buscar" value="Buscar">
