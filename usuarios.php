@@ -57,7 +57,17 @@
 			</form>
 			<form name="form" action="admin_consultas.php" method="POST">
 				<input required type="text" name="dniOid" placeholder="DNI o ID del usuario">
-				<input type="submit" name="removeUsuario" class="boton_baja" value="Eliminar" onclick="remove()">
+				<input type="submit" id="baja" name="removeUsuario" class="boton_baja" value="Eliminar"  onclick="remove()">
+					
+				<script type="text/javascript">
+					window.addEventListener("load", function(){
+						document.getElementById("baja").addEventListener("click", function(){ 
+								alert("Usuario eliminado exitosamente");
+						})
+					})
+   
+				</script>   
+
 			</form>
 			<?php
 				$sql = "SELECT id, Nombre, Apellidos, DNI, Fecha_de_nacimiento, Permisos, Email, Contrasenia FROM Usuario";
@@ -65,7 +75,7 @@
 			?>
 			<br>
 				<table border="1px solid black" cellspacing="0">
-					<thead style="background-color: #4d8cf2;">
+					<thead style="background-color: #4d8cf2;"> 
 						<th>Id</th>
 						<th>Nombre</th>
 						<th>Apellidos</th>
