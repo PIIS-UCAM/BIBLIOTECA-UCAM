@@ -1,3 +1,10 @@
+/* Paleta de colores de la UCAM 
+    azul-oscuro: #002664;
+    azul-claro: #1B7CC7;
+    gris-oscuro: #52595D;
+    gris-claro: #E9E9E9;
+    amarillo: #E2A300; */
+
 body#indexBody {
     background-size: 150% 150%; 
     background-attachment: fixed; 
@@ -59,12 +66,12 @@ input[type="email"]:focus {
 
 /*fondo de la pagina index.php*/
 html.back_color{
-    background-color: rgb(192, 189, 189);
+    background-color: #E9E9E9;
 } 
 
 /*letrero del index.php*/
 h.title.footer{
-    color: blue;
+    color: #1B7CC7;
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
 }

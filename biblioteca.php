@@ -15,7 +15,7 @@
 				background-position-x: center;
 				background-position-y: center;   
 				background-size: 50rem;
-				background-color: FFE633;
+				background-color: #e2a300;
 			}
 
 			.menu ul{
@@ -23,7 +23,7 @@
 				margin: 0;
 				padding: 0;
 				overflow: hidden;
-				background-color: #004175;
+				background-color: #002664;
 			}
 
 			.menu li {
@@ -39,7 +39,7 @@
 			}
 
 			.menu li a:hover:not(.active) {
-				background-color: #F5B003;
+				background-color: #e2a300;
 			}
 
 		</style> 

@@ -3,16 +3,16 @@
     include('admin.php');
     include('admin_consultas.php');
 ?> 
-<html style="background-color: FFE633;">
+<html style="background-color: #E2A300;">
 	<head>
 		
-		<center style="font-size: xx-large;"><h5 style="font-size: 40px;"><div style="background-color: #4d8cf2;">BIBLIOTECA UCAM</div></h5></center>
+		<center style="font-size: xx-large;"><h5 style="font-size: 40px;"><div style="background-color: #1B7CC7;">BIBLIOTECA UCAM</div></h5></center>
 		
 		<title>Panel de administración</title>
 		<meta charset="utf-8">
 		<style type="text/css">
 			tbody tr:nth-child(odd){ 
-				background: #eac633; 
+				background: #e2a300; 
 			}
 			
 			tbody tr:nth-child(even){
@@ -20,19 +20,19 @@
 			}
 
 			#pagLibros {
-				background-color: #F5B003;
+				background-color: #e2a300;
 			}
 
 			.añadir_libro{
 				text-decoration: none;
 				font-weight: 10px;
 				font-size: 15px;
-				color: #ffffff;
+				color: white;
 				padding-top: 5px;
 				padding-bottom: 5px;
 				padding-left: 30px;
 				padding-right: 30px;
-				background-color: #005BBB;
+				background-color: #002664;
 				border: 3px solid black;
 			}	
 
@@ -40,12 +40,12 @@
 					text-decoration: none;
 				font-weight: 10px;
 				font-size: 15px;
-				color: #ffffff;
+				color: white;
 				padding-top: 5px;
 				padding-bottom: 5px;
 				padding-left: 30px;
 				padding-right: 30px;
-				background-color: #F5B003;
+				background-color: #e2a300;
 				border: 3px solid black;
 				}
 

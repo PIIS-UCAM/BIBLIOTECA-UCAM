@@ -10,19 +10,19 @@
 		<title>Usuarios</title>
 		<style type="text/css">
 			#pagUsuarios {
-				background-color: #F5B003;
+				background-color: #E2A300;
 			}
 
 			.boton_alta{
 				text-decoration: none;
 				font-weight: 10px;
 				font-size: 15px;
-				color: #ffffff;
+				color: white;
 				padding-top: 5px;
 				padding-bottom: 5px;
 				padding-left: 30px;
 				padding-right: 30px;
-				background-color: #005BBB;
+				background-color: #52595D;
 				border: 3px solid black;
 			} 
 
@@ -30,12 +30,12 @@
 				text-decoration: none;
 				font-weight: 10px;
 				font-size: 15px;
-				color: #ffffff;
+				color: white;
 				padding-bottom: 5px;
 				padding-top: 5px;
 				padding-left: 30px; 
 				padding-right: 30px;
-				background-color: #F5B003;
+				background-color: #e2a300;
 				border: 3px solid black; 
 			}
  
@@ -75,7 +75,7 @@
 			?>
 			<br>
 				<table border="1px solid black" cellspacing="0">
-					<thead style="background-color: #4d8cf2;"> 
+					<thead style="background-color: #1B7CC7;"> 
 						<th>Id</th>
 						<th>Nombre</th>
 						<th>Apellidos</th>
