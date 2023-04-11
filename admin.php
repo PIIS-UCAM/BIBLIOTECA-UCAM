@@ -56,7 +56,6 @@
 				<li><a href="index.php">Página de inicio</a></li>
 				<li id="pagLibros"><a href="libros.php">Libros</a></li>
 				<li id="pagUsuarios"><a href="usuarios.php">Usuarios</a></li>
-				<li id="CuentaUsuario"><a href="Cuenta Usuario.php">Cuenta Usuario</a></li>
 			</ul>
 		</nav> 
 

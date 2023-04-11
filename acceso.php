@@ -9,12 +9,14 @@
     // Inicio de variables de sesión
     session_start();
     // Consultas
-    $correo=mysqli_query($connect, "SELECT Email FROM usuario WHERE Email='$email';");
+    $correo=mysqli_query($connect, "SELECT Email FROM usuarios WHERE Email='$email';");
     $comprobar_correo= mysqli_fetch_array($correo);  
-    $nombre= mysqli_query($connect, "SELECT nombre FROM usuario u WHERE u.email='$email' AND u.contrasenia='$pass';") or die(mysqli_error($connect));
+    $nombre= mysqli_query($connect, "SELECT nombre FROM usuarios u WHERE u.email='$email' AND u.contrasenia='$pass';") or die(mysqli_error($connect));
     $nombreUsuario= mysqli_fetch_array($nombre);
+	$id= mysqli_query($connect, "SELECT id FROM usuarios u WHERE u.email='$email' AND u.contrasenia='$pass';") or die(mysqli_error($connect));
+    $idUsuario= mysqli_fetch_array($id);
 
-    $password=mysqli_query($connect, "SELECT contrasenia FROM usuario WHERE contrasenia='$pass';");
+    $password=mysqli_query($connect, "SELECT contrasenia FROM usuarios WHERE contrasenia='$pass';");
     $comprobar_pass= mysqli_fetch_array($password);
     
 //Acceso de administrador:
@@ -53,6 +55,7 @@
 						
                         $_SESSION['email'] = $_POST['email'];
                         $_SESSION['usuario'] = $nombreUsuario['nombre'];
+						$_SESSION['id_usuario'] = $idUsuario['id'];
                         include('conexion.php');
                         echo '<script>alert("👋😀 ¡BIENVENID@, '.$_SESSION['usuario'].'!")</script>';
                         echo "<script>window.location = 'biblioteca.php';</script>";

@@ -1,7 +1,7 @@
 <?php
     include('conexion.php');
     include('admin.php');
-    include('admin_consultas.php');
+    include('consultas.php');
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
 		<!--Usuarios-->
 		<div style="clear: both; padding-top: 10px">
 			<h1>Usuarios:</h1>	
-			<form name="form" action="admin_consultas.php" method="POST">
+			<form name="form" action="consultas.php" method="POST">
 				<input required type="text" name="nombreUsuario" placeholder="Nombre"><br>
 				<input required type="text" name="apellidosUsuario" placeholder="Apellido"><br>
 				<input required type="text" name="dni" placeholder="DNI"><br>
@@ -55,22 +55,12 @@
 				<p>Conceder permisos de administrador/bibliotecario: <input type="checkbox" name="checkBoxPermisos"></p>
 				<input type="submit" name="addUsuario" class="boton_alta" value="Alta" onclick="add()"><br><br>
 			</form>
-			<form name="form" action="admin_consultas.php" method="POST">
+			<form name="form" action="consultas.php" method="POST">
 				<input required type="text" name="dniOid" placeholder="DNI o ID del usuario">
-				<input type="submit" id="baja" name="removeUsuario" class="boton_baja" value="Eliminar"  onclick="remove()">
-					
-				<script type="text/javascript">
-					window.addEventListener("load", function(){
-						document.getElementById("baja").addEventListener("click", function(){ 
-								alert("Usuario eliminado exitosamente");
-						})
-					})
-   
-				</script>   
-
+				<input type="submit" id="baja" name="removeUsuario" class="boton_baja" value="Eliminar">
 			</form>
 			<?php
-				$sql = "SELECT id, Nombre, Apellidos, DNI, Fecha_de_nacimiento, Permisos, Email, Contrasenia FROM Usuario";
+				$sql = "SELECT id, Nombre, Apellidos, DNI, Fecha_de_nacimiento, Permisos, Email, Contrasenia FROM Usuarios";
 				$resultado = $connect->query($sql) or die(mysqli_error($connect)); 
 			?>
 			<br>
@@ -106,9 +96,6 @@
 					</tbody>
 				</table>
 			</div>
-		<footer>
-			<h4>BIBLIOTECA UCAM</h4>
-		</footer>
 
 	</body>
 </html> 
