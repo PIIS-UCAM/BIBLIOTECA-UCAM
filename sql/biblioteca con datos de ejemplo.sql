@@ -1,31 +1,14 @@
--- phpMyAdmin SQL Dump
--- version 5.1.3
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Apr 11, 2023 at 06:49 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+DROP USER IF EXISTS 'bibliotecario'@'localhost';
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+CREATE USER 'bibliotecario'@'localhost' IDENTIFIED BY '1234';
 
+GRANT ALL PRIVILEGES ON *.* TO 'bibliotecario'@'localhost';
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+DROP DATABASE IF EXISTS biblioteca;
 
---
--- Database: `biblioteca`
---
+CREATE DATABASE biblioteca;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `libros`
---
+USE biblioteca;
 
 CREATE TABLE `libros` (
   `id` int(11) NOT NULL,
@@ -148,7 +131,3 @@ ALTER TABLE `reservas`
   ADD CONSTRAINT `fk_reservas_libros` FOREIGN KEY (`id_libro`) REFERENCES `libros` (`id`),
   ADD CONSTRAINT `fk_reservas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
