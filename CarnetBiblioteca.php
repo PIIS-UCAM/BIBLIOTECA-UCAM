@@ -55,23 +55,23 @@
         
   </style> 
 
-
+ 
 </head>
 
-
+ 
 <body>
         <center>
         <div class="padre">
           <center><h1 class="carnet">Biblioteca UCAM</h1></center>  
-
-            <label class="lettera">Nombre: </label><br><br>
-            <label class="letterb">Apellido:</label><br><br>
-            <label class="letterc">Fecha de nacimiento:</label><br><br>
-            <label class="letterd">DNI:</label><br><br>
+                                                            /*forma de recuperar los datos para ello incluimos el fichero php de alta del usuario*/       
+            <label class="lettera">Nombre: </label><br><br> <?php $nombre =  $_GET['nombre'] ?>
+            <label class="letterb">Apellido:</label><br><br> <?php $apellido =  $_GET['apellido'] ?>
+            <label class="letterc">Fecha de nacimiento:</label><br><br> <?php $fechanacimineto =  $_GET['fechanacimiento'] ?>
+            <label class="letterd">DNI:</label><br><br> <?php $dni =  $_GET['dni'] ?>
 
           <img class="photo" src="https://acortar.link/Rkd7hG">
        
-        </div>
+        </div> 
       </center> 
 </body>
 
