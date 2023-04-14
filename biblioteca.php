@@ -119,7 +119,7 @@
 					<li>
 						<form name="form" id="formularioBaja" action="consultas.php" method="POST">
 							<input style="display: none;" type="text" name="id_baja" value="<?php echo $_SESSION['id_usuario']?>">
-							<a id="btnBaja" name="bajaUsuario" href="javascript:{}" onclick="document.getElementById('formularioBaja').submit();">Darse de baja</a>
+							<a id="btnBaja" name="bajaUsuario" href="#" onclick="return confirm('¿Está seguro de que desea eliminar su usuario del sistema?') && document.forms[0].submit();">Darse de baja</a>
 						</form>
 					</li>
 				</ul>
@@ -203,20 +203,6 @@
 				}
 
 			});
-
-			btnBaja.addEventListener('click', (event) => {
-				
-				// Prevenir el envío predeterminado del formulario
-				event.preventDefault();
-				
-				// Mostrar un mensaje de confirmación y obtener la respuesta del usuario
-				const confirmacion = confirm(`¿Está seguro de que desea eliminar su usuario del sistema?`);
-
-				// Si el usuario confirma, enviar el formulario
-				if (confirmacion) {
-					formularioBaja.submit();
-				}
-			})
 
 		</script> 
 			<?php
