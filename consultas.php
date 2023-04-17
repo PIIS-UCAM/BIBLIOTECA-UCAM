@@ -88,16 +88,16 @@
 			echo '<script>alert("El usuario no se puede eliminar. Tiene libros pendientes de devolver.")</script>';
 			echo "<script>window.location = 'biblioteca.php';</script>";
 		} else {
+			$consulta = mysqli_query($connect, "SELECT Email FROM usuarios WHERE id = $id_baja");
+			$comprobar_consulta = mysqli_fetch_array($consulta);
 
-			$consulta = mysqli_query($connect, "SELECT * FROM usuarios WHERE id_usuario = $id_baja");
-			$comprobar_consulta= mysqli_fetch_array($consulta);
-			
 			if(isset($comprobar_consulta[0])){
-				$consulta = mysqli_query($connect, "DELETE FROM usuarios WHERE dni='$id_baja'");
-				echo "<script type='text/javascript'>alert('Su usuario ha sido dado de baja correctamente 😉👍.\n¡Esperamos volver a verle en el futuro!');</script>";
-				echo "<script>window.location = 'index.php';</script>";
+				$consulta = mysqli_query($connect, "DELETE FROM usuarios WHERE id='$id_baja'");
+				$mensaje = "Su usuario ha sido dado de baja correctamente 😉👍¡Esperamos volver a verle en el futuro!👋";
+				echo "<script>alert('$mensaje');</script>";
 			}
 		}
+		echo "<script>window.location = 'index.php';</script>";
 	}
 
 	else if (isset($id_usuario) && isset($id_libro)) {
