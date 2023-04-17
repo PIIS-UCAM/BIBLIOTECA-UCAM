@@ -29,6 +29,11 @@
 
             }
 
+            .letter{
+                color: whitesmoke;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 16px;
+            }
 
     </style>
 </head>
@@ -39,11 +44,11 @@
 <h3 class="title">Filtro de Busqueda</h3>
 
     <form class="formulario">
-     <p> Busqueda General :</p><input type="text" id="busqueda_general" placeholder="Busqueda general" maxlength="20px" size="30px">   
-     <p>ISBN :</p><input type="text" id="busqueda_isbn" placeholder="Busqueda por isbn" maxlength="20px" size="19px">    
-     <p>Autor :</p><input type="text" id="busqueda_autor" placeholder="Busqueda autor" maxlength="20px" size="19px">
-     <p>Titulo :</p><input type="text" id="busqueda_titulo" placeholder="Busqueda titulo" maxlength="20px" size="19px"> 
-     <p>Genero :</p>
+     <p><strong class="letter">Busqueda general</strong></p><input type="text" id="busqueda_general" placeholder="Busqueda general" maxlength="20px" size="30px">   
+     <p><strong class="letter">ISBN :</strong></p><input type="text" id="busqueda_isbn" placeholder="Busqueda por isbn" maxlength="20px" size="19px">    
+     <p><strong class="letter">Autor :</strong></p><input type="text" id="busqueda_autor" placeholder="Busqueda autor" maxlength="20px" size="19px">
+     <p><strong class="letter">Titulo :</strong></p><input type="text" id="busqueda_titulo" placeholder="Busqueda titulo" maxlength="20px" size="19px"> 
+     <p>class="letter"><strong>Genero :</strong></p>
      <select>
         <option value="accion">Accion</option>
         <option value="novela">Novela</option> 
