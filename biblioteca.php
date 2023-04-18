@@ -7,11 +7,11 @@
 
 <html>
 	<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		
 		<title>¡Bienvenido, <?php echo $_SESSION['usuario']; ?>!</title>
 		<link rel="stylesheet" href="css/styles.css">
 		<style>
-
 			header{
 				height: auto;
 			}
@@ -50,16 +50,17 @@
 			}
 
 			.btn_buscar{
+				display: inline-block;
                 text-decoration: none;
-				font-weight: 10px;
-				font-size: 15px;
+				font-weight: 20px; 
+				font-size: 19px; 
 				color: white;
 				padding-bottom: 5px;
 				padding-top: 5px;
 				padding-left: 30px; 
 				padding-right: 30px;
-				background-color: #e2a300;
-				border: 3px solid black; 
+				background-color: #002664;
+				border: 1px solid transparent; 
             }
              
             .gradient{
@@ -90,6 +91,33 @@
 				background-color: #e2a300;
 			} 
 
+			.buscarlibro {
+				margin: 20px 0px 20px 575px;
+				display: inline-block;
+				background-color: #fff;
+				border: 1px solid #ced4da;
+				border-radius: 0.25rem;
+				line-height: 1.5;
+				font-size: 1rem;
+                font-weight: 400;
+				padding: 0.375rem 0.75rem; 
+				width: 20%;
+			}
+
+			.table{
+				margin: 0px 0px 0px 300px;
+				width:70%;
+			}
+
+			thead {
+              background-color: #E2A300;
+            }
+			
+			.btn_reservar{
+				background-color: #52595D;
+				color:white;
+			}
+
 		</style> 
 		
 	</head>
@@ -114,7 +142,7 @@
 						<a href="" class="active">Perfil de <?php echo $_SESSION['usuario']; ?></a>
 					</li>
 					<li>
-						<a href="">Reserved</a>
+						<a href="">Reservas</a>
 					</li>
 					<li>
 						<form name="form" id="formularioBaja" action="consultas.php" method="POST">
@@ -133,11 +161,11 @@
 		</header>
 
 		<div>       
-			<h3>Busqueda de Libros</h3>
+			<h3 style="margin: 0px 0px 0px 675px">Busqueda de Libros</h3>
 
 			<form name="form" action="" method="POST">
-			Búsqueda de libro : <input type="search" name="busquedalibro" size="30" maxlength="20" placeholder="Escriba el título del libro a buscar"> 
-				<input type="submit" class="btn_buscar" value="Buscar">
+				<input type="search" class="buscarlibro" name="busquedalibro"  placeholder="Escriba el título del libro"> 
+                <input type="submit" class="btn_buscar" value="Buscar">
 			</form>
 		</div> 
 
@@ -151,17 +179,17 @@
 			$resultado = $connect->query($sql) or die(mysqli_error($connect));
 		?> 
 			<br>
-				<table border="1px solid black" cellspacing="0">
-					<thead style="background-color: #4d8cf2;">
-						<th>Id</th>
-						<th>Título</th>
-						<th>Autor</th> 
-						<th>Género</th>
-						<th>Editorial</th> 
-						<th>Número de páginas</th>
-						<th>ISBN</th>
-						<th>Stock</th>
-						<th>Reservar</th>
+				<table class="table table-striped table-hover">
+					<thead>
+						<th scope="col">Id</th>
+						<th scope="col">Título</th>
+						<th scope="col">Autor</th> 
+						<th scope="col">Género</th>
+						<th scope="col">Editorial</th> 
+						<th scope="col">Número de páginas</th>
+						<th scope="col">ISBN</th>
+						<th scope="col">Stock</th>
+						<th scope="col">Reservar</th>
 					</thead> 
 					<tbody>
 			<?php
@@ -170,7 +198,7 @@
 						echo "<form id='formularioReserva' action='consultas.php' method='POST'>
 						<input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
 						<input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
-						<tr><td align='center'>".$valor["id"]. "</td><td align='center'>" .$valor["titulo"]. "</td><td align='center'>".$valor["autor"]."</td><td align='center'>" .$valor["genero"]. "</td><td align='center'>" .$valor["editorial"]."</td><td align='center'>" .$valor["numero_paginas"]. "</td><td align='center'>" .$valor["ISBN"]."</td><td align='center'>" .$valor["stock"]. "</td><td align='center'>
+						<tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
 						<input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td></tr></form>";
 					}
 			?>
