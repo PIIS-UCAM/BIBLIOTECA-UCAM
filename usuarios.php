@@ -9,36 +9,99 @@
 	<head>
 		<title>Usuarios</title>
 		<style type="text/css">
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f2f2f2;
+            }
+
+            h1 {
+                color: #002856;
+                font-size: 36px;
+                margin-bottom: 20px;
+				margin-left: 20px;
+            }
+
+            footer {
+                background-color: #002856;
+                padding: 20px;
+                text-align: center;
+                color: #fff;
+                font-size: 16px;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+            }
+
 			#pagUsuarios {
 				background-color: #E2A300;
 			}
 
-			.boton_alta{
+			.boton_alta {
 				text-decoration: none;
-				font-weight: 10px;
+				font-weight: bold;
 				font-size: 15px;
 				color: white;
-				padding-top: 5px;
-				padding-bottom: 5px;
-				padding-left: 30px;
-				padding-right: 30px;
-				background-color: #52595D;
-				border: 3px solid black;
-			} 
-
-			.boton_baja{
-				text-decoration: none;
-				font-weight: 10px;
-				font-size: 15px;
-				color: white;
-				padding-bottom: 5px;
-				padding-top: 5px;
-				padding-left: 30px; 
-				padding-right: 30px;
-				background-color: #e2a300;
-				border: 3px solid black; 
+				padding: 5px 30px;
+				background-color: #002856;
+				border: 2px solid #002856;
+				border-radius: 5px;
+				cursor: pointer;
 			}
- 
+
+			.boton_alta:hover {
+				background-color: #004691;
+				border-color: #004691;
+			}
+
+			.boton_baja {
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 15px;
+				color: white;
+				padding: 5px 30px;
+				background-color: #E21B1B;
+				border: 2px solid #E21B1B;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+
+			.boton_baja:hover {
+				background-color: #FF2E2E;
+				border-color: #FF2E2E;
+			}
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                background-color: #fff;
+                margin-bottom: 50px;
+            }
+
+            th, td {
+                padding: 8px;
+                text-align: center;
+                border: 1px solid #ccc;
+            }
+
+            th {
+                background-color: #002856;
+                color: white;
+                font-weight: bold;
+            }
+
+            tbody tr:nth-child(odd) {
+                background-color: #f2f2f2;
+            }
+
+            .form-container {
+                margin-left: 20px;
+            }
+
+            input[type="text"], input[type="date"], input[type="email"] {
+                margin-bottom: 10px;
+            }
 		</style>
 	</head>
 	<body>
@@ -96,6 +159,8 @@
 					</tbody>
 				</table>
 			</div>
-
+            <footer>
+                &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
+            </footer>
 	</body>
-</html> 
+</html>
