@@ -6,43 +6,55 @@
 
 <head>
     <style> 
-            .btn_buscar{
-                text-decoration: none;
-				font-weight: 10px;
-				font-size: 15px;
-				color: white;
-				padding-bottom: 5px;
-				padding-top: 5px;
-				padding-left: 30px; 
-				padding-right: 30px;
-				background-color: #e2a300;
-				border: 3px solid black; 
-            }
-             
-            .gradient{
-                background-image: linear-gradient(to right, rgba(27, 124, 199), rgba(226, 163, 0));
-            }
-             
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        
+        h3 {
+            color: #002856;
+            font-size: 24px;
+            margin-left: 20px;
+        }
 
+        .search-container {
+            margin-left: 20px;
+        }
 
+        input[type="search"] {
+            margin-bottom: 10px;
+        }
+
+        .btn_buscar {
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            color: white;
+            padding: 5px 30px;
+            background-color: #002856;
+            border: 2px solid #002856;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn_buscar:hover {
+            background-color: #004691;
+            border-color: #004691;
+        }
     </style>
 
 </head>
  
-<body class="gradient">
-     
-    <div>       
-    <h3>Busqueda de Libros</h3>
-
-    <p>
-      Búsqueda de libro : <input type="search" name="busquedalibro" size="17" maxlength="20"> 
-    </p>
-
-    <input type="submit" class="btn_buscar" value="Buscar">
+<body>
+    <div class="search-container">
+        <h3>Busqueda de Libros</h3>
+        <p>
+            Búsqueda de libro : <input type="search" name="busquedalibro" size="17" maxlength="20"> 
+        </p>
+        <input type="submit" class="btn_buscar" value="Buscar">
     </div>  
-
-
 </body>
-
                 
-</html>  
+</html>
