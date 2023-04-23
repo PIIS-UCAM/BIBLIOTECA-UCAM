@@ -62,9 +62,12 @@ CREATE TABLE `usuarios` (
   `DNI` varchar(250) NOT NULL,
   `Apellidos` varchar(250) NOT NULL,
   `Permisos` tinyint(1) NOT NULL,
-  `Fecha_de_nacimiento` varchar(250) NOT NULL,
+  `Fecha_de_nacimiento` DATE NOT NULL,
   `Email` varchar(250) NOT NULL,
-  `Contrasenia` varchar(250) NOT NULL
+  `Contrasenia` varchar(250) NOT NULL,
+  `Fecha_de_expedicion` DATETIME NOT NULL,
+  `Fecha_de_validez` DATETIME NOT NULL,
+  `Foto_de_carnet` MEDIUMBLOB NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -72,7 +75,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `Nombre`, `DNI`, `Apellidos`, `Permisos`, `Fecha_de_nacimiento`, `Email`, `Contrasenia`) VALUES
-(1, 'Pepe', '3452345234F', 'Vazquez', 0, '1998-04-23', 'asdf@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055');
+(1, 'Pepe', '3452345234F', 'Vazquez Ortiz', 0, '1998-04-23', 'asdf@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055');
 
 --
 -- Indexes for dumped tables

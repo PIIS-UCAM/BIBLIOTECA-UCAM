@@ -31,9 +31,11 @@ CREATE TABLE Usuarios(
     DNI Varchar (250) NOT NULL,
     Apellidos Varchar(250) NOT NULL,
     Permisos Boolean NOT NULL,
-    Fecha_de_nacimiento Varchar (250) NOT NULL, 
+    Fecha_de_nacimiento DATE NOT NULL,
     Email Varchar (250) NOT NULL,
-    Contrasenia Varchar (250) NOT NULL
+    Contrasenia Varchar (250) NOT NULL,
+    Fecha_de_expedicion DATETIME NOT NULL,
+    Fecha_de_validez DATETIME NOT NULL
 );      
 
 CREATE TABLE Reservas(

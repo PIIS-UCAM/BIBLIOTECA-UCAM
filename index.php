@@ -114,7 +114,7 @@
 
 	<script type="text/javascript">
         document.getElementById("acceso").innerHTML = '<?php echo "Hola "; ?>';
-        document.getElementById("usuario").innerHTML = '<?php session_start(); echo $_SESSION['usuario']; ?>';
+        document.getElementById("usuario").innerHTML = '<?php session_start(); echo $_SESSION['nombre']; ?>';
         document.getElementById("seccion").style.display = "none";
         document.getElementById("formAcceso").style.display = "none";
         function secciones() {

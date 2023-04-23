@@ -9,7 +9,7 @@
 	<head>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		
-		<title>¡Bienvenido, <?php echo $_SESSION['usuario']; ?>!</title>
+		<title>¡Bienvenido, <?php echo $_SESSION['nombre']; ?>!</title>
 		<link rel="stylesheet" href="css/styles.css">
 		<style>
 			header{
@@ -62,6 +62,10 @@
 				background-color: #002664;
 				border: 1px solid transparent; 
             }
+
+			.btn_buscar:hover {
+				text-decoration: none;
+			}
              
             .gradient{
                 background-image: linear-gradient(to right, rgba(27, 124, 199), rgba(226, 163, 0));
@@ -84,6 +88,10 @@
 				color: white;
 				text-align: center;
 				padding: 14px 16px;
+				text-decoration: none;
+			}
+
+			a {
 				text-decoration: none;
 			}
 
@@ -139,7 +147,7 @@
 						<a href="index.php">Página de inicio</a>
 					</li>
 					<li>
-						<a href="" class="active">Perfil de <?php echo $_SESSION['usuario']; ?></a>
+						<a href="CarnetBiblioteca.php" class="active">Carnet de biblioteca</a>
 					</li>
 					<li>
 						<a href="">Reservas</a>
@@ -166,6 +174,7 @@
 			<form name="form" action="" method="POST">
 				<input type="search" class="buscarlibro" name="busquedalibro"  placeholder="Escriba el título del libro"> 
                 <input type="submit" class="btn_buscar" value="Buscar">
+				<a class="btn_buscar" href="panelFiltroBusqueda.php">Búsqueda avanzada</a>
 			</form>
 		</div> 
 
@@ -179,29 +188,30 @@
 			$resultado = $connect->query($sql) or die(mysqli_error($connect));
 		?> 
 			<br>
-				<table class="table table-striped table-hover">
-					<thead>
-						<th scope="col">Id</th>
-						<th scope="col">Título</th>
-						<th scope="col">Autor</th> 
-						<th scope="col">Género</th>
-						<th scope="col">Editorial</th> 
-						<th scope="col">Número de páginas</th>
-						<th scope="col">ISBN</th>
-						<th scope="col">Stock</th>
-						<th scope="col">Reservar</th>
-					</thead> 
-					<tbody>
-			<?php
-				if (mysqli_num_rows($resultado)>0) {
-					while($valor = mysqli_fetch_assoc($resultado)) {
-						echo "<form id='formularioReserva' action='consultas.php' method='POST'>
-						<input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
-						<input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
-						<tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
-						<input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td></tr></form>";
-					}
-			?>
+				<div class="container">
+					<table class="table table-striped table-hover">
+						<thead>
+							<th scope="col">Id</th>
+							<th scope="col">Título</th>
+							<th scope="col">Autor</th> 
+							<th scope="col">Género</th>
+							<th scope="col">Editorial</th> 
+							<th scope="col">Número de páginas</th>
+							<th scope="col">ISBN</th>
+							<th scope="col">Stock</th>
+							<th scope="col">Reservar</th>
+						</thead> 
+						<tbody>
+				<?php
+					if (mysqli_num_rows($resultado)>0) {
+						while($valor = mysqli_fetch_assoc($resultado)) {
+							echo "<form id='formularioReserva' action='consultas.php' method='POST'>
+							<input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
+							<input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
+							<tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
+							<input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td></tr></form></tbody></table></div>";
+						}
+				?>
 		<script type="text/javascript">
 
 			const formularioReserva = document.querySelector('#formularioReserva');
@@ -233,12 +243,11 @@
 			});
 
 		</script> 
-			<?php
-				} else {
-					echo "<tr><td colspan='9' align='center'>0 resultados</td></tr>";
-				}
-			?>
-
+				<?php
+					} else {
+						echo "<tr><td colspan='9' align='center'>0 resultados</td></tr></tbody></table></div>";
+					}
+				?>
 	</body>
 
 </html> 

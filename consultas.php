@@ -23,12 +23,15 @@
 	$email = $_POST['email'];
 	$contrasenia = md5($_POST['contrasenia']);
 	$permisos = $_POST['checkBoxPermisos'];
-	$dniOid = $_POST['dniOid'];
+	$id_usuario_borrar = $_POST['id_usuario_borrar'];
 
 	$id_usuario = $_POST['id_usuario'];
 	$id_libro = $_POST['id_libro'];
-	$fecha_reserva = date("Y-m-d H:i:s");
-	$fecha_devolucion = date("Y-m-d H:i:s", strtotime("+15 days"));
+	$fecha_reserva = date('d/m/Y H:i:s');
+	$fecha_devolucion = date('d/m/Y H:i:s', strtotime("+15 days"));
+
+	$fecha_expedicion_carnet = date("Y-m-d H:i:s");
+	$fecha_validez_carnet = date("Y-m-d H:i:s", strtotime("+365 days"));
 
 	$id_baja = $_POST['id_baja'];
 	
@@ -39,11 +42,13 @@
         echo "<script type='text/javascript'>alert('Libro añadido 😉👍');</script>";
 		header('location: libros.php');
 	}
+
 	else if (isset($removeLibro)) {
 		$consulta = mysqli_query($connect, "DELETE FROM libros WHERE isbn='$isbnOid' OR id='$isbnOid'");
 		echo "<script type='text/javascript'>alert('Libro eliminado 😉👍');</script>";
         header('location: libros.php');
 	}
+
 	else if (isset($addUsuario)){
 		
 		if(empty($permisos)){
@@ -51,25 +56,27 @@
 		} else {
 			$permisos = 1;
 		}
-
-		$consulta = mysqli_query($connect, "INSERT INTO usuarios (id, nombre, apellidos, dni, fecha_de_nacimiento, permisos, email, contrasenia) VALUES ('', '$nombreUsuario', '$apellidosUsuario', '$dni', '$fecha_de_nacimiento', '$permisos', '$email', '$contrasenia')");
-        echo "<script type='text/javascript'>alert('Usuario añadido 😉👍');</script>";
+		$fotoSubida = fopen($_FILES['fotoCarnet']['tmp_name'], 'r');
+		$binariosFoto = fread($fotoSubida, $_FILES['fotoCarnet']['size']);
+		$binariosFoto = mysqli_escape_string($connect, $binariosFoto);
+		$consulta = mysqli_query($connect, "INSERT INTO usuarios (id, nombre, apellidos, dni, fecha_de_nacimiento, permisos, email, contrasenia, Fecha_de_expedicion, Fecha_de_validez, Foto_de_carnet) VALUES ('', '$nombreUsuario', '$apellidosUsuario', '$dni', '$fecha_de_nacimiento', '$permisos', '$email', '$contrasenia', '$fecha_expedicion_carnet', '$fecha_validez_carnet', '$binariosFoto')");
+		echo "<script type='text/javascript'>alert('Usuario añadido 😉👍');</script>";
 		header('location: usuarios.php');
 	}
 
 	else if (isset($removeUsuario)) {
-		$consulta = mysqli_query($connect, "SELECT COUNT(*) as cantidad_reservas FROM reservas WHERE id_usuario = $dniOid");
+		$consulta = mysqli_query($connect, "SELECT COUNT(*) as cantidad_reservas FROM reservas WHERE id_usuario = $id_usuario_borrar");
 		$comprobar_consulta= mysqli_fetch_array($consulta);  
 		
 		if ($comprobar_consulta[0] > 0) {
 			echo '<script>alert("El usuario no se puede eliminar. Tiene libros pendientes de devolver.")</script>';
 		} else {
 
-			$consulta = mysqli_query($connect, "SELECT * FROM usuarios WHERE id_usuario = $dniOid");
+			$consulta = mysqli_query($connect, "SELECT * FROM usuarios WHERE id = $id_usuario_borrar");
 			$comprobar_consulta= mysqli_fetch_array($consulta);
 			
 			if(isset($comprobar_consulta[0])){
-				$consulta = mysqli_query($connect, "DELETE FROM usuarios WHERE dni='$dniOid' OR id=$dniOid");
+				$consulta = mysqli_query($connect, "DELETE FROM usuarios WHERE id = $id_usuario_borrar");
 				echo "<script>alert('Usuario eliminado 😉👍');</script>";
 			}
 			else{
@@ -113,6 +120,7 @@
 		}
 		echo "<script>window.location = 'biblioteca.php';</script>";
 	}
-	else {}
+	else {
+	}
 
 ?>

@@ -67,36 +67,46 @@
     </style>
 </head>
 <body>
-<h3 class="title">Filtro de Búsqueda</h3>
-<div class="container">
-<form>
-  <div class="mb-3">
-    <label for="exampleInputBusquedaGeneral" class="form-label">Busqueda general</label>
-    <input type="busqueda_general" class="form-control" id="exampleInputBusquedaGeneral" >
+  <h3 class="title">Filtro de Búsqueda</h3>
+  <a href="biblioteca.php" style="text-decoration: none; color: white;"> < Volver a la Biblioteca</a>
+  <div class="container">
+  <form name="form" id="formularioFiltroBusqueda" action="tablaFiltroBusqueda.php" method="POST">
+      <div class="mb-3">
+        <label for="exampleInputBusquedaGeneral" class="form-label">Busqueda general</label>
+        <input name="busqueda_general" type="busqueda_general" class="form-control" id="exampleInputBusquedaGeneral" >
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputBusquedaISBN" class="form-label">ISBN</label>
+        <input name="busqueda_isbn" type="busqueda_ISBN" class="form-control" id="exampleInputBusquedaISBN">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputBusquedaAutor" class="form-label">Autor</label>
+        <input name="busqueda_autor" type="busqueda_autor" class="form-control" id="exampleInputBusquedaAutor">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputBusquedaTitulo" class="form-label">Titulo</label>
+        <input name="busqueda_titulo" type="busqueda_titulo" class="form-control" id="exampleInputBusquedaTitulo">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputBusquedaGenero" class="form-label">Género</label>
+        <select name="busqueda_genero" class="form-select">
+          <option value="" selected disabled hidden>Elija una opción</option>
+          <option value="ciencia ficción">Ciencia ficción</option>
+          <option value="fantasía">Fantasía</option>
+          <option value="terror">Terror</option>
+          <option value="romance">Romance</option>
+          <option value="drama">Drama</option>
+          <option value="misterio">Misterio</option>
+          <option value="aventuras">Aventuras</option>
+          <option value="histórica">Histórica</option>
+          <option value="infantil">Infantil</option>
+          <option value="juvenil">Juvenil</option>
+          <option value="poesía">Poesía</option>
+          <option value="ensayo">Ensayo</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Busqueda</button>
+    </form>
   </div>
-  <div class="mb-3">
-    <label for="exampleInputBusquedaISBN" class="form-label">ISBN</label>
-    <input type="busqueda_ISBN" class="form-control" id="exampleInputBusquedaISBN">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputBusquedaAutor" class="form-label">Autor</label>
-    <input type="busqueda_autor" class="form-control" id="exampleInputBusquedaAutor">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputBusquedaTitulo" class="form-label">Titulo</label>
-    <input type="busqueda_titulo" class="form-control" id="exampleInputBusquedaTitulo">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputBusquedaGenero" class="form-label">Género</label>
-     <select class="form-select">
-        <option value="accion">Acción</option>
-        <option value="novela">Novela</option> 
-        <option value="comedia">Comedia</option>
-     </select>
-  </div>
-  <button type="submit" class="btn btn-primary">Busqueda</button>
-  </body>
-<!-- </center> -->
-</form>
-</div>
+</body>
 </html> 

@@ -102,7 +102,11 @@
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
             }
+            
         </style>
     </head>
     <body>
@@ -159,7 +163,7 @@
         </div>
 		
     </div>
-	            <footer>
+	        <footer>
                 &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
             </footer>
 </body>
