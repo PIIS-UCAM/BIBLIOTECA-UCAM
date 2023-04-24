@@ -209,7 +209,7 @@
 							<input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
 							<input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
 							<tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
-							<input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td></tr></form></tbody></table></div>";
+							<input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td></tr></form>";
 						}
 				?>
 		<script type="text/javascript">

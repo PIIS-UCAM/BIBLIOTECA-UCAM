@@ -27,8 +27,8 @@
 
 	$id_usuario = $_POST['id_usuario'];
 	$id_libro = $_POST['id_libro'];
-	$fecha_reserva = date('d/m/Y H:i:s');
-	$fecha_devolucion = date('d/m/Y H:i:s', strtotime("+15 days"));
+	$fecha_reserva = date('Y-m-d H:i:s');
+	$fecha_devolucion = date('Y-m-d H:i:s', strtotime("+15 days"));
 
 	$fecha_expedicion_carnet = date("Y-m-d H:i:s");
 	$fecha_validez_carnet = date("Y-m-d H:i:s", strtotime("+365 days"));
