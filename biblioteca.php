@@ -134,39 +134,42 @@
 		<header>
 			
 			<div class="logo">
-				<img src="rsc/imgs/logo.png">
+			<img src="rsc/imgs/logo.png">
+		</div>
+		<input type="checkbox" id="nav_check" hidden>
+		<nav>
+			<div class="logo">
+			<img src="rsc/imgs/logo.png" alt="">
 			</div>
-			<input type="checkbox" id="nav_check" hidden>
-			<nav>
-				<div class="logo">
-				<img src="rsc/imgs/logo.png" alt="">
-				</div>
-				<div> 
-				<ul>
-					<li>
-						<a href="index.php">Página de inicio</a>
-					</li>
-					<li>
-						<a href="CarnetBiblioteca.php" class="active">Carnet de biblioteca</a>
-					</li>
-					<li>
-						<a href="">Reservas</a>
-					</li>
-					<li>
-						<form name="form" id="formularioBaja" action="consultas.php" method="POST">
-							<input style="display: none;" type="text" name="id_baja" value="<?php echo $_SESSION['id_usuario']?>">
-							<a id="btnBaja" name="bajaUsuario" href="#" onclick="return confirm('¿Está seguro de que desea eliminar su usuario del sistema?') && document.forms[0].submit();">Darse de baja</a>
-						</form>
-					</li>
-				</ul>
-				</div>
-			</nav>
-			<label for="nav_check" class="hamburger">
-				<div></div>
-				<div></div>
-				<div></div>
-			</label>
-		</header>
+			<div> 
+			<ul>
+				<li>
+					<a href="index.php">Página de inicio</a>
+				</li>
+				<li>
+					<a href="CarnetBiblioteca.php" class="active">Carnet de biblioteca</a>
+				</li>
+				<li>
+					<a href="biblioteca.php">Reservas</a>
+				</li>
+      <li>
+					<a href="Valoracion.php">Valoración de libros</a>
+				</li>
+				<li>
+					<form name="form" id="formularioBaja" action="consultas.php" method="POST">
+						<input style="display: none;" type="text" name="id_baja" value="<?php echo $_SESSION['id_usuario']?>">
+						<a id="btnBaja" name="bajaUsuario" href="#" onclick="return confirm('¿Está seguro de que desea eliminar su usuario del sistema?') && document.forms[0].submit();">Darse de baja</a>
+					</form>
+				</li>
+			</ul>
+			</div>
+		</nav>
+		<label for="nav_check" class="hamburger">
+			<div></div>
+			<div></div>
+			<div></div>
+		</label>
+	</header>
 
 		<div>       
 			<h3 style="margin: 0px 0px 0px 675px">Busqueda de Libros</h3>
