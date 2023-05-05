@@ -9,9 +9,20 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
       <title>Tabla filtro busqueda</title>
       <style>
-              thead {
-                background-color: #E2A300;
-              }
+        thead {
+          background-color: #E2A300;
+        }
+
+        #nota-cliente {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          text-align: center;
+          width: 100%;
+          background-color: #f8f8f8;
+          color: #333;
+          padding: 20px;
+        }
       </style>    
 
   </head>
@@ -32,25 +43,30 @@
         //echo $busqueda_titulo;
         $busqueda_genero = $_POST['busqueda_genero'];
         //echo $busqueda_genero;
+        $busqueda_valoracion = $_POST['valoracion'];
         
         if(!empty($busqueda_general)){
-          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false AND isbn LIKE '%$busqueda_general%' OR autor LIKE '%$busqueda_general%' OR titulo LIKE '%$busqueda_general%' OR genero LIKE '%$busqueda_general%' OR editorial LIKE '%$busqueda_general%'";
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND isbn LIKE '%$busqueda_general%' OR autor LIKE '%$busqueda_general%' OR titulo LIKE '%$busqueda_general%' OR genero LIKE '%$busqueda_general%' OR editorial LIKE '%$busqueda_general%'";
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else if(!empty($busqueda_isbn)){
-          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false AND isbn LIKE '%$busqueda_isbn%'";
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND isbn LIKE '%$busqueda_isbn%'";
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else if(!empty($busqueda_autor)){
-          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false AND autor LIKE '%$busqueda_autor%'";
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND autor LIKE '%$busqueda_autor%'";
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else if(!empty($busqueda_titulo)){
-          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false AND titulo LIKE '%$busqueda_titulo%'";
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND titulo LIKE '%$busqueda_titulo%'";
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else if(!empty($busqueda_genero)){
-          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false AND genero LIKE '%$busqueda_genero%'";
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND genero LIKE '%$busqueda_genero%'";
+          $resultado = $connect->query($sql) or die(mysqli_error($connect));
+        }
+        else if(!empty($busqueda_valoracion)){
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND media >= $busqueda_valoracion";
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else{
@@ -72,6 +88,7 @@
                 <th scope="col">ISBN</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Reservar</th>
+                <th scope="col">Puntuación media</th>
               </thead> 
               <tbody>
           <?php
@@ -79,14 +96,18 @@
               while($valor = mysqli_fetch_assoc($resultado)) {
                 echo "<form id='formularioReserva' action='consultas.php' method='POST'>
                 <input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
+                
                 <input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
                 <tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
-                <input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td></tr></form></tbody></table></div>";
+                <input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td><td align='left'>" .$valor["media"]. "</td></tr></form></tbody></table></div>";
               }
             } else {
-              echo "<tr><td colspan='9' align='center'>0 resultados</td></tr></tbody></table></div>";
+              echo "<tr><td colspan='10' align='center'>0 resultados</td></tr></tbody></table></div>";
             }
           ?>
-
+      <div id="nota-cliente">
+        <p>Clicke sobre el libro en cuestión para acceder al apartado de valoraciones y ver los comentarios escritos por otros clientes ✍️.</p>
+      </div>
+      
   </body>
 </html>
