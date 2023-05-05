@@ -110,6 +110,16 @@
 				padding: 0.375rem 0.75rem; 
 				width: 20%;
 			}
+			.star {
+			font-size: 1.5rem;
+			color: #ccc;
+			cursor: pointer;
+		}
+
+			.star:hover,
+			.star:hover ~ .star {
+			color: #ffc107;
+		}
 
 			.table{
 				margin: 0px 0px 0px 300px;
@@ -217,13 +227,16 @@
 							<td align="left"><?php echo $ISBN ?></td>
 							<td align="left"><?php echo $stock ?></td>
 							<td align="left">
-								<select name="valoracion">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-								</select>
+							
+							<div class="rating">
+							<span class="star" data-value="5">&#9733;</span>
+							<span class="star" data-value="4">&#9733;</span>
+							<span class="star" data-value="3">&#9733;</span>
+							<span class="star" data-value="2">&#9733;</span>
+							<span class="star" data-value="1">&#9733;</span>
+							<input type="hidden" name="valoracion" class="star-value" value="">
+						</div>
+
 							</td>
 						</tr>
 						<tr>
@@ -268,6 +281,19 @@
 
 			mysqli_close($connect);
 			?>
+			
+			<script>
+			document.querySelectorAll('.rating .star').forEach((star) => {
+			star.addEventListener('click', function (event) {
+			const rating = this.parentElement;
+			const starValue = this.dataset.value;
+			const starValueInput = rating.querySelector('.star-value');
+			rating.querySelectorAll('.star').forEach((s) => s.classList.toggle('selected', s === this));
+			starValueInput.value = starValue;
+			});
+			});
+</script>
+
 </body>		
 
 </html> 
