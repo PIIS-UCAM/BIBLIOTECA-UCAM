@@ -119,12 +119,26 @@
                         <input required type="text" name="isbn" placeholder="ISBN"><br>
                         <input required type="text" name="titulo" placeholder="Título"><br>
                         <input required type="text" name="autor" placeholder="Autor"><br>
-                        <input required type="text" name="genero" placeholder="Género"><br>
+                            <select required name="genero" class="form-select">
+                                <option value="" selected disabled hidden>Elija un género</option>
+                                <option value="ciencia ficción">Ciencia ficción</option>
+                                <option value="fantasía">Fantasía</option>
+                                <option value="terror">Terror</option>
+                                <option value="romance">Romance</option>
+                                <option value="drama">Drama</option>
+                                <option value="misterio">Misterio</option>
+                                <option value="aventuras">Aventuras</option>
+                                <option value="histórica">Histórica</option>
+                                <option value="infantil">Infantil</option>
+                                <option value="juvenil">Juvenil</option>
+                                <option value="poesía">Poesía</option>
+                                <option value="ensayo">Ensayo</option>
+                            </select><br>
                         <input required type="text" name="editorial" placeholder="Editorial"><br>
-                    <input required type="number" name="numpags" placeholder="Número de páginas"><br>
-                    <input required type="number" name="stock" placeholder="Stock"><br>
-                    <input required type="date"  name="reserva"><br><br>
-                    <input type="submit" name="addLibro" class="añadir_libro" value="Añadir" onclick="add()"><br><br>
+                        <input required type="number" name="numpags" placeholder="Número de páginas"><br>
+                        <input required type="number" name="stock" placeholder="Stock"><br>
+                        <input required type="date"  name="reserva"><br><br>
+                        <input type="submit" name="addLibro" class="añadir_libro" value="Añadir" onclick="add()"><br><br>
                 </form>
 
                 <form name="form" action="consultas.php" method="POST">
