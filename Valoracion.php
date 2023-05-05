@@ -1,5 +1,6 @@
 <?php
-	include('conexion.php');
+	include('conexion.php'); // Conexión a la base de datos
+	include('consultas.php');
 	session_start();
 	// echo "<div style='float: left'>Volver a la página principal:<br><br><br><br>  <a href='' onclick='javascript:window.history.back(-1); return false;'><img class='option' src='rsc/imgs/casa.png' /></a></div>";
 ?>
@@ -241,7 +242,8 @@
 						</tr>
 						<tr>
 							<td colspan="9">
-								<input type="text" name="comentario" style="width: 100%;" placeholder="Ingrese su comentario aquí" />
+								<br>
+								<textarea type="text" name="comentario" style="width: 100%;" placeholder="Ingrese su comentario aquí"  rows="5" cols="50"></textarea><br><br>
 								<button type="submit" name="enviar">Enviar</button>
 							</td>
 						</tr>
@@ -252,9 +254,6 @@
 			?>
 
 			<?php
-			// Conexión a la base de datos
-			include('conexion.php');
-				session_start();
 
 			// Recuperación de los datos del formulario
 			$id_usuario = $_POST['id_usuario'];
