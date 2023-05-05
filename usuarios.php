@@ -29,7 +29,7 @@
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
-                position: absolute;
+                position: float;
                 bottom: 0;
                 width: 100%;
             }

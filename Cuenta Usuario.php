@@ -14,7 +14,7 @@
         }
         
         h3 {
-            color: #002856;
+            color: #002664;
             font-size: 24px;
             margin-left: 20px;
         }
@@ -33,15 +33,15 @@
             font-size: 15px;
             color: white;
             padding: 5px 30px;
-            background-color: #002856;
-            border: 2px solid #002856;
+            background-color: #002664;
+            border: 2px solid #002664;
             border-radius: 5px;
             cursor: pointer;
         }
 
         .btn_buscar:hover {
-            background-color: #004691;
-            border-color: #004691;
+            background-color: #1B7CC7;
+            border-color: #1B7CC7;
         }
     </style>
 
