@@ -119,19 +119,30 @@
 
 			.star:hover,
 			.star:hover ~ .star {
-			color: #ffc107;
+			color: #E2A300;
 		}
 
 			.table{
-				margin: 0px 0px 0px 300px;
+				margin: 0px 0px 0px 225px;
 				width:70%;
 			}
 
 			thead {
               background-color: #E2A300;
             }
+
+			button:hover {
+			background-color: #E2A300;
+			}
+
 			
-			
+			button {
+			background-color: #E9E9E9;
+			}
+
+			.rating {
+				direction: rtl;
+			}
 
 		</style> 
 		
@@ -244,7 +255,7 @@
 							<td colspan="9">
 								<br>
 								<textarea type="text" name="comentario" style="width: 100%;" placeholder="Ingrese su comentario aquí"  rows="5" cols="50"></textarea><br><br>
-								<button type="submit" name="enviar">Enviar</button>
+								<button type="submit" name="enviar" >Enviar</button>
 							</td>
 						</tr>
 					</form>
