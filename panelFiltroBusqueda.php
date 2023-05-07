@@ -77,11 +77,6 @@
     .star:hover, .star:hover ~ .star {
         color: #ffc107;
     }
-
-    .rating {
-				direction: rtl;
-        float: left;
-			}
     
   </style>
 </head>
@@ -135,7 +130,6 @@
           <input type="hidden" name="valoracion" class="star-value" value="">
         </div>
       </div>
-      <br><br>
       <button type="submit" class="btn btn-primary">Busqueda</button>
     </form>
   </div>

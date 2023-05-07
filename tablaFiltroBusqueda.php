@@ -94,20 +94,22 @@
           <?php
             if (mysqli_num_rows($resultado)>0) {
               while($valor = mysqli_fetch_assoc($resultado)) {
+                $idLibro = $valor["id"];
+
                 echo "<form id='formularioReserva' action='consultas.php' method='POST'>
                 <input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
                 
                 <input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
                 <tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
-                <input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td><td align='left'>" .$valor["media"]. "</td></tr></form></tbody></table></div>";
+                <input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td><td align='left'>" .$valor["media"]. " (<a href='valoraciones.php?id_libro=$idLibro'>ver valoraciones</a>)</td></tr></form></tbody></table></div>";
               }
             } else {
               echo "<tr><td colspan='10' align='center'>0 resultados</td></tr></tbody></table></div>";
             }
           ?>
-      <div id="nota-cliente">
+      <!-- <div id="nota-cliente">
         <p>Clicke sobre el libro en cuestión para acceder al apartado de valoraciones y ver los comentarios escritos por otros clientes ✍️.</p>
-      </div>
+      </div> -->
       
   </body>
 </html>
