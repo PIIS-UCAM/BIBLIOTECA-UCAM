@@ -68,21 +68,15 @@
         background-color: #002664;
     }
 
-.star {
-    font-size: 1.5rem;
-    color: #ccc;
-    cursor: pointer;
-}
+    .star {
+        font-size: 1.5rem;
+        color: #ccc;
+        cursor: pointer;
+    }
 
-.star:hover, .star.hover {
-    color: #ffc107;
-}
-
-.star.selected {
-    color: #ffc107;
-}
-
-
+    .star:hover, .star:hover ~ .star {
+        color: #ffc107;
+    }
     
   </style>
 </head>
@@ -127,61 +121,30 @@
       </div>
       <div class="mb-3">
         <label for="star" class="form-label">Puntuación <br> (se mostrarán resultados con la misma o mejor valoración)</label>
-<div class="rating">
-  <span class="star" data-value="1">&#9733;</span>
-  <span class="star" data-value="2">&#9733;</span>
-  <span class="star" data-value="3">&#9733;</span>
-  <span class="star" data-value="4">&#9733;</span>
-  <span class="star" data-value="5">&#9733;</span>
-  <input type="hidden" name="valoracion" class="star-value" value="">
-</div>
-
+        <div class="rating">
+          <span class="star" data-value="5">&#9733;</span>
+          <span class="star" data-value="4">&#9733;</span>
+          <span class="star" data-value="3">&#9733;</span>
+          <span class="star" data-value="2">&#9733;</span>
+          <span class="star" data-value="1">&#9733;</span>
+          <input type="hidden" name="valoracion" class="star-value" value="">
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">Busqueda</button>
     </form>
   </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const stars = document.querySelectorAll('.star');
-    const starValue = document.querySelector('.star-value');
-
-    stars.forEach((star, index) => {
-      star.addEventListener('click', function () {
-        const ratingValue = this.getAttribute('data-value');
-        starValue.value = ratingValue;
-
-        stars.forEach((s, i) => {
-          if (i < index + 1) {
-            s.classList.add('selected');
-          } else {
-            s.classList.remove('selected');
-          }
-        });
-      });
-
-      star.addEventListener('mouseover', function () {
-        stars.forEach((s, i) => {
-          if (i <= index) {
-            s.classList.add('hover');
-          } else {
-            s.classList.remove('hover');
-          }
-        });
-      });
-
-      star.addEventListener('mouseout', function () {
-        stars.forEach(s => {
-          s.classList.remove('hover');
-        });
-      });
-    });
-  });
-</script>
-
-
-
-
+  <script>
+		document.querySelectorAll('.rating .star').forEach((star) => {
+			star.addEventListener('click', function (event) {
+        const rating = this.parentElement;
+        const starValue = this.dataset.value;
+        const starValueInput = rating.querySelector('.star-value');
+        rating.querySelectorAll('.star').forEach((s) => s.classList.toggle('selected', s === this));
+        starValueInput.value = starValue;
+			});
+		});
+  </script>
 
 </body>
 </html> 

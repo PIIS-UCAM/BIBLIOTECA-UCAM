@@ -13,6 +13,10 @@
           background-color: #E2A300;
         }
 
+        tbody {
+          background-color: white;
+        }
+
         #nota-cliente {
           position: fixed;
           bottom: 0;
@@ -23,6 +27,14 @@
           color: #333;
           padding: 20px;
         }
+
+        body {
+            background-image: url('https://investigacion.ucam.edu/sites/investigacion.ucam.edu/files/public/imagenes/componentes/two-col/hitech.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
       </style>    
 
   </head>
