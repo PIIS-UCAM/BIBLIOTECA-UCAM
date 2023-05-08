@@ -110,9 +110,9 @@
                 // Ejecutar la consulta
                 mysqli_stmt_execute($stmt);
                 // Obtener el resultado
-                $resultado = mysqli_stmt_get_result($stmt);
+                $resultado2 = mysqli_stmt_get_result($stmt);
                 // Obtener el primer registro
-                $usuario = mysqli_fetch_array($resultado);
+                $usuario = mysqli_fetch_array($resultado2);
 
                 echo "<div class='container'>";
                 

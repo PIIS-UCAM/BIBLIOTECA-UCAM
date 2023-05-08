@@ -111,19 +111,19 @@
 				padding: 0.375rem 0.75rem; 
 				width: 20%;
 			}
-.star {
-    font-size: 1.5rem;
-    color: #ccc;
-    cursor: pointer;
-}
+			.star {
+				font-size: 1.5rem;
+				color: #ccc;
+				cursor: pointer;
+			}
 
-.star:hover, .star.hover {
-    color: #ffc107;
-}
+			.star:hover, .star.hover {
+				color: #ffc107;
+			}
 
-.star.selected {
-    color: #ffc107;
-}
+			.star.selected {
+				color: #ffc107;
+			}
 
 			.table{
 				margin: 0px 0px 0px 225px;
@@ -131,20 +131,16 @@
 			}
 
 			thead {
-              background-color: #E2A300;
+            	background-color: #E2A300;
             }
 
 			button:hover {
-			background-color: #E2A300;
+				background-color: #E2A300;
 			}
 
 			
 			button {
-			background-color: #E9E9E9;
-			}
-
-			.rating {
-				direction: rtl;
+				background-color: #E9E9E9;
 			}
 
 		</style> 
@@ -201,6 +197,8 @@
 					WHERE r.id_usuario = $id_usuario";
 
 					$resultado = $connect->query($sql) or die(mysqli_error($connect));
+
+					
 					?> 
 						<br>
 							<div class="container">
@@ -230,8 +228,8 @@
 					$stock = $valor["stock"];
 			?>
 					<form id="formularioValoracion<?php echo $id ?>" method="POST">
-						<input type="hidden" name="id_usuario" value="<?php echo $_SESSION['id_usuario'] ?>" />
-						<input type="hidden" name="id_libro" value="<?php echo $id ?>" />
+						<input type="hidden" name="id_usuario_valoracion" value="<?php echo $_SESSION['id_usuario'] ?>" />
+						<input type="hidden" name="id_libro_valoracion" value="<?php echo $id ?>" />
 						<tr>
 							<td align="left"><?php echo $id ?></td>
 							<td align="left"><?php echo $titulo ?></td>
@@ -244,12 +242,12 @@
 							<td align="left">
 							
 								<div class="rating">
-									<span class="star" data-value="5">&#9733;</span>
-									<span class="star" data-value="4">&#9733;</span>
-									<span class="star" data-value="3">&#9733;</span>
-									<span class="star" data-value="2">&#9733;</span>
 									<span class="star" data-value="1">&#9733;</span>
-									<input type="hidden" name="valoracion" class="star-value" value="">
+									<span class="star" data-value="2">&#9733;</span>
+									<span class="star" data-value="3">&#9733;</span>
+									<span class="star" data-value="4">&#9733;</span>
+									<span class="star" data-value="5">&#9733;</span>
+									<input required type="hidden" name="valoracion" class="star-value" value="">
 								</div>
 
 							</td>
@@ -265,75 +263,81 @@
 			<?php
 				}
 			}
+			else {
+				echo "<tr><td colspan='10' align='center'>0 resultados</td></tr>";
+			}
 			?>
 
 			<?php
 
-			// Recuperación de los datos del formulario
-			$id_usuario = $_POST['id_usuario'];
-			$id_libro = $_POST['id_libro'];
-			$valoracion = $_POST['valoracion'];
-			$comentario = $_POST['comentario'];
+				// Recuperación de los datos del formulario de valoracion
+				$id_usuario = $_POST['id_usuario_valoracion'];
+				$id_libro = $_POST['id_libro_valoracion'];
+				$valoracion = $_POST['valoracion'];
+				$comentario = $_POST['comentario'];
+				$enviar = $_POST['enviar'];
 
-			// Actualización de la tabla "reservas"
-			$sql = "UPDATE reservas SET valoracion = ?, comentario = ? WHERE id_usuario = ? AND id_libro = ?";
-			$stmt = mysqli_prepare($connect, $sql);
-			mysqli_stmt_bind_param($stmt, 'isii', $valoracion, $comentario, $id_usuario, $id_libro);
-			mysqli_stmt_execute($stmt);
+				if (isset($enviar)) {
+					// Actualización de la tabla "reservas"
+					$sql = "UPDATE reservas SET valoracion = ?, comentario = ? WHERE id_usuario = ? AND id_libro = ?";
+					$stmt = mysqli_prepare($connect, $sql);
+					mysqli_stmt_bind_param($stmt, 'isii', $valoracion, $comentario, $id_usuario, $id_libro);
+					mysqli_stmt_execute($stmt);
 
-			// Actualización de la tabla "libros"
-			$sql = "UPDATE libros SET contador = contador + 1, sumatorio = sumatorio + ? WHERE id = ?";
-			$stmt = mysqli_prepare($connect, $sql);
-			mysqli_stmt_bind_param($stmt, 'ii', $valoracion, $id_libro);
-			mysqli_stmt_execute($stmt);
+					// Actualización de la tabla "libros"
+					$sql = "UPDATE libros SET contador = contador + 1, sumatorio = sumatorio + ? WHERE id = ?";
+					$stmt = mysqli_prepare($connect, $sql);
+					mysqli_stmt_bind_param($stmt, 'ii', $valoracion, $id_libro);
+					mysqli_stmt_execute($stmt);
 
-			$sql = "UPDATE libros SET media = sumatorio/contador WHERE id = ?";
-			$stmt = mysqli_prepare($connect, $sql);
-			mysqli_stmt_bind_param($stmt, 'i', $id_libro);
-			mysqli_stmt_execute($stmt);
+					$sql = "UPDATE libros SET media = sumatorio/contador WHERE id = ?";
+					$stmt = mysqli_prepare($connect, $sql);
+					mysqli_stmt_bind_param($stmt, 'i', $id_libro);
+					mysqli_stmt_execute($stmt);
 
-			mysqli_close($connect);
+					mysqli_close($connect);
+
+					echo "<script type='text/javascript'>alert('Valoración añadida 😉👍');</script>";
+
+					header('location: biblioteca.php');
+				}
 			?>
 			
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const stars = document.querySelectorAll('.star');
-    const starValue = document.querySelector('.star-value');
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+		const stars = document.querySelectorAll('.star');
+		const starValue = document.querySelector('.star-value');
+		stars.forEach((star, index) => {
+			star.addEventListener('click', function () {
+			const ratingValue = this.getAttribute('data-value');
+			starValue.value = ratingValue;
+			stars.forEach((s, i) => {
+				if (i < index + 1) {
+				s.classList.add('selected');
+				} else {
+				s.classList.remove('selected');
+				}
+			});
+			});
 
-    stars.forEach((star, index) => {
-      star.addEventListener('click', function () {
-        const ratingValue = this.getAttribute('data-value');
-        starValue.value = ratingValue;
-
-        stars.forEach((s, i) => {
-          if (i < index + 1) {
-            s.classList.add('selected');
-          } else {
-            s.classList.remove('selected');
-          }
-        });
-      });
-
-      star.addEventListener('mouseover', function () {
-        stars.forEach((s, i) => {
-          if (i <= index) {
-            s.classList.add('hover');
-          } else {
-            s.classList.remove('hover');
-          }
-        });
-      });
-
-      star.addEventListener('mouseout', function () {
-        stars.forEach(s => {
-          s.classList.remove('hover');
-        });
-      });
-    });
-  });
-</script>
+			star.addEventListener('mouseover', function () {
+			stars.forEach((s, i) => {
+				if (i <= index) {
+				s.classList.add('hover');
+				} else {
+				s.classList.remove('hover');
+				}
+			});
+			});
+			star.addEventListener('mouseout', function () {
+			stars.forEach(s => {
+				s.classList.remove('hover');
+			});
+			});
+		});
+		});
+	</script>
 
 </body>		
 
 </html> 
-

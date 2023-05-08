@@ -9,12 +9,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
       <title>Tabla filtro busqueda</title>
       <style>
+
+        table {
+          text-align: center;
+        }
+
         thead {
           background-color: #E2A300;
         }
 
         tbody {
           background-color: white;
+        }
+
+        td {
+          text-align: center;
         }
 
         #nota-cliente {
@@ -35,13 +44,45 @@
             background-position: center;
         }
 
+        .rating {
+            --dir: right;
+            --fill: gold;
+            --fillbg: rgba(100, 100, 100, 0.15);
+            --star: url('rsc/imgs/estrella.svg');
+            background-color: transparent;
+            --stars: 5;
+            --starsize: 2rem;
+            --symbol: var(--star);
+            --w: calc(var(--stars) * var(--starsize));
+            --x: calc(100% * (var(--value) / var(--stars)));
+            block-size: var(--starsize);
+            inline-size: var(--w);
+            position: relative;
+            touch-action: manipulation;
+            -webkit-appearance: none;
+        }
+        
+        .rating::-webkit-slider-runnable-track {
+            background: linear-gradient(to var(--dir), var(--fill) 0 var(--x), var(--fillbg) 0 var(--x));
+            block-size: 100%;
+            mask: repeat left center/var(--starsize) var(--symbol);
+            -webkit-mask: repeat left center/var(--starsize) var(--symbol);
+        }
+        
+        .rating::-webkit-slider-thumb {
+            height: var(--starsize);
+            opacity: 0;
+            width: var(--starsize);
+            -webkit-appearance: none;
+        }
+
       </style>    
 
   </head>
 
 
   <body>
-  <a href="panelFiltroBusqueda.php" style="text-decoration: none; color: #002664;"> < Volver a la Búsqueda Avanzada</a>
+  <a href="panelFiltroBusqueda.php" style="text-decoration: none; color: white;"> < Volver a la Búsqueda Avanzada</a>
     <br>
     <br>
     <?php
@@ -78,7 +119,7 @@
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else if(!empty($busqueda_valoracion)){
-          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND media >= $busqueda_valoracion";
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = true AND media >= $busqueda_valoracion";
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else{
@@ -113,12 +154,17 @@
                 
                 <input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
                 <tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
-                <input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td><td align='left'>" .$valor["media"]. " (<a href='valoraciones.php?id_libro=$idLibro'>ver valoraciones</a>)</td></tr></form></tbody></table></div>";
+                <input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td><td align='left'><input class='rating' max='5'
+                step='0.5'
+                style='--value:".$valor["media"]."'
+                type='range'
+                value='".$valor["media"]."'><br>(<a href='valoraciones.php?id_libro=$idLibro'>ver valoraciones</a>)</td></tr></form>";
               }
             } else {
-              echo "<tr><td colspan='10' align='center'>0 resultados</td></tr></tbody></table></div>";
+              echo "<tr><td colspan='10' align='center'>0 resultados</td></tr>";
             }
           ?>
+          </tbody></table></div>
       <!-- <div id="nota-cliente">
         <p>Clicke sobre el libro en cuestión para acceder al apartado de valoraciones y ver los comentarios escritos por otros clientes ✍️.</p>
       </div> -->
