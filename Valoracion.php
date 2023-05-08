@@ -298,8 +298,6 @@
 					mysqli_close($connect);
 
 					echo "<script type='text/javascript'>alert('Valoración añadida 😉👍');</script>";
-
-					header('location: biblioteca.php');
 				}
 			?>
 			
