@@ -111,16 +111,19 @@
 				padding: 0.375rem 0.75rem; 
 				width: 20%;
 			}
-			.star {
-			font-size: 1.5rem;
-			color: #ccc;
-			cursor: pointer;
-		}
+.star {
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+}
 
-			.star:hover,
-			.star:hover ~ .star {
-			color: #E2A300;
-		}
+.star:hover, .star.hover {
+    color: #ffc107;
+}
+
+.star.selected {
+    color: #ffc107;
+}
 
 			.table{
 				margin: 0px 0px 0px 225px;
@@ -292,18 +295,45 @@
 			mysqli_close($connect);
 			?>
 			
-			<script>
-			document.querySelectorAll('.rating .star').forEach((star) => {
-			star.addEventListener('click', function (event) {
-			const rating = this.parentElement;
-			const starValue = this.dataset.value;
-			const starValueInput = rating.querySelector('.star-value');
-			rating.querySelectorAll('.star').forEach((s) => s.classList.toggle('selected', s === this));
-			starValueInput.value = starValue;
-			});
-			});
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('.star');
+    const starValue = document.querySelector('.star-value');
+
+    stars.forEach((star, index) => {
+      star.addEventListener('click', function () {
+        const ratingValue = this.getAttribute('data-value');
+        starValue.value = ratingValue;
+
+        stars.forEach((s, i) => {
+          if (i < index + 1) {
+            s.classList.add('selected');
+          } else {
+            s.classList.remove('selected');
+          }
+        });
+      });
+
+      star.addEventListener('mouseover', function () {
+        stars.forEach((s, i) => {
+          if (i <= index) {
+            s.classList.add('hover');
+          } else {
+            s.classList.remove('hover');
+          }
+        });
+      });
+
+      star.addEventListener('mouseout', function () {
+        stars.forEach(s => {
+          s.classList.remove('hover');
+        });
+      });
+    });
+  });
 </script>
 
 </body>		
 
 </html> 
+
