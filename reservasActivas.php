@@ -32,11 +32,12 @@
                 position: float;
                 bottom: 0;
                 width: 100%;
+                position: fixed;
             }
 
-			#pagUsuarios {
-				background-color: #E2A300;
-			}
+            #pagReservasActivas {
+                background-color: #E2A300;
+            }
 
 			.boton_alta {
 				text-decoration: none;
@@ -97,60 +98,76 @@
 
             .form-container {
                 margin-left: 20px;
+				margin-right: 20px;
             }
 
             input[type="text"], input[type="date"], input[type="email"] {
                 margin-bottom: 10px;
             }
+
 		</style>
+        <script src="js/jquery-3.6.4.min.js"></script>
 	</head>
 	<body>
 		<!--Usuarios-->
 		<div style="clear: both; padding-top: 10px">
 			<h1>Reservas activas:</h1>
-				
-            <?php
-                $sql = "SELECT u.DNI, u.Nombre, u.Apellidos, l.Titulo, l.Autor, r.fecha_reserva, r.fecha_devolucion FROM reservas r INNER JOIN usuarios u ON u.id = r.id_usuario INNER JOIN libros l ON l.id = r.id_libro;";
-                $resultado = $connect->query($sql) or die(mysqli_error($connect)); 
-            ?>
-            <br>
-            <table border="1px solid black" cellspacing="0">
-                <thead style="background-color: #1B7CC7;"> 
-                    <th></th>
-                    <th>DNI del cliente</th>
-                    <th>Nombre del cliente</th>
-                    <th>Libro reservado</th> 
-                    <th>Fecha de reserva</th>
-                    <th>Fecha de devolución</th>
-                </thead>
-                <tbody>
+			<div class="form-container">
                 <?php
-                    if (mysqli_num_rows($resultado)>0) {
-                        while($valor = mysqli_fetch_assoc($resultado)) {
-
-                            if($valor["Permisos"] == '1'){
-                                $valor["Permisos"] = 'Bibliotecario';
-                            } else
-                            {
-                                $valor["Permisos"] = 'Cliente';
-                            }
-
-                                echo "<tr><td align='center'>
-                                <div class='form-check'>
-                                <input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'>
-                              </div></td><td align='center'>" .$valor["DNI"]. "</td><td align='center'>".$valor["Nombre"]." ".$valor["Apellidos"]."</td><td align='center'>\"".$valor["Titulo"]."\" de ".$valor["Autor"]."</td><td align='center'>" .$valor["fecha_reserva"]."</td><td align='center'>" .$valor["fecha_devolucion"]."</td></tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='8' align='center'>0 resultados</td></tr>";
-                    }
+                    $sql = "SELECT u.DNI, u.Nombre, u.Apellidos, l.Titulo, l.Autor, r.id, r.fecha_reserva, r.fecha_devolucion FROM reservas r INNER JOIN usuarios u ON u.id = r.id_usuario INNER JOIN libros l ON l.id = r.id_libro;";
+                    $resultado = $connect->query($sql) or die(mysqli_error($connect)); 
                 ?>
-                </tbody>
-            </table>
-            <form name="form" action="consultas.php" method="POST">
-                <label for="eliminarReserva">Pulse el botón para eliminar las reservas activas seleccionadas: </label>
-                <input type="submit" id="baja" name="eliminarReserva" class="boton_baja" value="Eliminar">
-            </form>
+                <br>
+                <table border="1px solid black" cellspacing="0">
+                    <thead style="background-color: #1B7CC7;"> 
+                        <th></th>
+                        <th>DNI del cliente</th>
+                        <th>Nombre del cliente</th>
+                        <th>Libro reservado</th> 
+                        <th>Fecha de reserva</th>
+                        <th>Fecha de devolución</th>
+                    </thead>
+                    <tbody>
+                    <?php
+                        if (mysqli_num_rows($resultado)>0) {
+                            while($valor = mysqli_fetch_assoc($resultado)) {
+
+                                    echo "<tr><td align='center'>
+                                    <div class='form-check'>
+                                    <input class='form-check-input' type='checkbox' value='".$valor["id"]."' id='flexCheckDefault'>
+                                </div></td><td align='center'>" .$valor["DNI"]. "</td><td align='center'>".$valor["Nombre"]." ".$valor["Apellidos"]."</td><td align='center'>\"".$valor["Titulo"]."\" de ".$valor["Autor"]."</td><td align='center'>" .$valor["fecha_reserva"]."</td><td align='center'>" .$valor["fecha_devolucion"]."</td></tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='8' align='center'>0 resultados</td></tr>";
+                        }
+                    ?>
+                    </tbody>
+                </table>
+                <form id="formEliminarReserva" action="consultas.php" method="POST">
+                    <label for="eliminarReserva">Pulse el botón para eliminar las reservas activas seleccionadas: </label>
+                    <input id="baja" name="eliminarReserva" class="boton_baja" value="Eliminar">
+                </form>
+            </div>
 		</div>
+        <script>
+            $(document).ready(function() {
+                $('#formEliminarReserva').submit(function(event) {
+                    event.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+                    
+                    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                    var reservasEliminar = [];
+                    checkboxes.forEach(function(checkbox) {
+                        reservasEliminar.push(checkbox.value); //Recojo el valor del id de la reserva seleccionado y lo guardo en el array
+                    });
+                    
+                    $.ajax({
+                        url: 'consultas.php',
+                        type: 'POST',
+                        data: {idsReservasEliminar: reservasEliminar}
+                    });
+                });
+            });
+        </script>
         <footer>
             &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
         </footer>
