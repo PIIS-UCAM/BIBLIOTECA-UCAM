@@ -32,6 +32,7 @@
                 position: float;
                 bottom: 0;
                 width: 100%;
+                position: fixed;
             }
 
             #pagLibros {
@@ -97,6 +98,7 @@
 
             .form-container {
                 margin-left: 20px;
+				margin-right: 20px;
             }
 
             input[type="text"], input[type="number"], input[type="date"] {

@@ -34,6 +34,8 @@
 	$fecha_validez_carnet = date("Y-m-d H:i:s", strtotime("+365 days"));
 
 	$id_baja = $_POST['id_baja'];
+
+	$ids_reservasEliminar = $_POST['idsReservasEliminar'];
 	
 	$connect->query("SET NAMES utf8");
 
@@ -120,6 +122,34 @@
 		}
 		echo "<script>window.location = 'biblioteca.php';</script>";
 	}
+
+	else if (isset($ids_reservasEliminar)) {
+		foreach($ids_reservasEliminar as $id_reservaEliminar){
+			$sql = "SELECT id_libro FROM reservas WHERE id='$id_reservaEliminar'";
+			
+			$consulta = mysqli_query($connect, "DELETE FROM reservas WHERE id='$id_reservaEliminar'");
+
+			$resultado = $connect->query($sql) or die(mysqli_error($connect)); 
+
+			if (mysqli_num_rows($resultado)>0) {
+				while($valor = mysqli_fetch_assoc($resultado)) {
+					$id_libro_devuelto = $valor["id_libro"];
+					$consulta = mysqli_query($connect, "UPDATE libros SET stock = stock+1 WHERE id= '$id_libro_devuelto'");
+					echo '<script>alert("Stock actualizado 😉👍")</script>';
+				}
+			}
+			else{}
+
+		}
+		$contadorReservas =  sizeof($ids_reservasEliminar);
+
+		if($contadorReservas == 1)
+			echo "<script type='text/javascript'>alert('Reserva eliminada 😉👍');</script>";
+		else
+			echo "<script type='text/javascript'>alert('Reservas eliminadas 😉👍');</script>";
+		header('location: reservasActivas.php');
+	}
+
 	else {
 	}
 
