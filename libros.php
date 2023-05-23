@@ -9,7 +9,7 @@
         <title>Libros</title>
         <meta charset="utf-8">
         <style type="text/css">
-     body {
+            body {
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
@@ -87,7 +87,6 @@
             .form-container {
                 margin-left: 20px;
 				margin-right: 20px;
-                padding-bottom: 2.5rem;
             }
 
             input[type="text"], input[type="number"], input[type="date"] {
@@ -96,18 +95,18 @@
 
             .content {
                 flex: 1;
-                position: relative;
-                min-height: 100vh;
             }
 
             footer {
                 background-color: #002856;
-                padding: 20px;
+                padding: 20px 0px 10px 0px;
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
-                width: 100%; 
+                width: 100%;
+                height: 40px;
                 position: absolute;
+                margin-top:50px;
             }
 
             .form-select {
@@ -186,6 +185,7 @@
     </div>
 </body>
     <footer>
-        &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
+        &copy; 
+        2023 Biblioteca UCAM. Todos los derechos reservados.
     </footer>
 </html>  

@@ -24,13 +24,15 @@
             }
 
             footer {
-                background-color: #002856;
-                padding: 20px;
+				background-color: #002856;
+                padding: 20px 0px 10px 0px;
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
-                width: 100%; 
-				position: absolute;
+                width: 100%;
+                height: 40px;
+                position: absolute;
+                margin-top:50px;
             }
 
 			#pagUsuarios {

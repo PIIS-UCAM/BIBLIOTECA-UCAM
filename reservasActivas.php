@@ -32,6 +32,7 @@
                 bottom: 0;
                 width: 100%;
                 position: fixed;
+                margin-top:50px;
             }
 
             #pagReservasActivas {
