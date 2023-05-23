@@ -119,9 +119,9 @@
 					<input required type="email" name="email" placeholder="Correo"><br>
 					<input required type="password" name="contrasenia" placeholder="Contraseña"><br><br>
 					<label for="fotoCarnet">Seleccionar foto de carnet:</label>
-					<input type="file" name="fotoCarnet" accept="image/*" required><br><br>
+					<input type="file" name="fotoCarnet" id="fotoCarnet" accept="image/*" required><br><br>
 					<label for="checkBoxPermisos">Conceder permisos de administrador/bibliotecario:</label>
-					<input type="checkbox" name="checkBoxPermisos"><br><br>
+					<input type="checkbox" name="checkBoxPermisos" id="checkBoxPermisos"><br><br>
 					<input type="submit" name="addUsuario" class="boton_alta" value="Alta" onclick="add()"><br><br>
 				</form>
 				<form name="form" action="consultas.php" method="POST">

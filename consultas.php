@@ -35,7 +35,8 @@
 
 	$id_baja = $_POST['id_baja'];
 
-	$ids_reservasEliminar = $_POST['idsReservasEliminar'];
+	// Recibe el dato JSON enviado desde el formulario
+	$json_idsReservasEliminar = $_POST['arrayReservasEliminar']; 
 	
 	$connect->query("SET NAMES utf8");
 
@@ -118,36 +119,48 @@
 			$consulta = mysqli_query($connect, "INSERT INTO reservas (id, id_libro, id_usuario, fecha_reserva, fecha_devolucion) VALUES ('', '$id_libro', '$id_usuario', '$fecha_reserva', '$fecha_devolucion')");
 			$consulta = mysqli_query($connect, "UPDATE libros SET stock = stock-1 WHERE stock >= 1 AND id= '$id_libro'");
 			$consulta = mysqli_query($connect, "UPDATE libros SET reservado = true WHERE stock = 0 AND id= '$id_libro'");
-			echo '<script>alert("Reserva realizada 😉👍")</script>';
+			echo '<script>alert("Reserva realizada 😉👍");</script>';
 		}
 		echo "<script>window.location = 'biblioteca.php';</script>";
 	}
 
-	else if (isset($ids_reservasEliminar)) {
-		foreach($ids_reservasEliminar as $id_reservaEliminar){
-			$sql = "SELECT id_libro FROM reservas WHERE id='$id_reservaEliminar'";
-			
-			$consulta = mysqli_query($connect, "DELETE FROM reservas WHERE id='$id_reservaEliminar'");
-
-			$resultado = $connect->query($sql) or die(mysqli_error($connect)); 
+	else if (isset($json_idsReservasEliminar)) {
+		
+		// Decodifica el dato JSON a un array en PHP
+		$array_idsReservasEliminar = json_decode($json_idsReservasEliminar);
+		// Recorro el array de ids
+		foreach($array_idsReservasEliminar as $id_reservaEliminar){
+			$consulta = "SELECT id_libro FROM reservas WHERE id=$id_reservaEliminar";
+			$resultado = $connect->query($consulta) or die(mysqli_error($connect)); 
 
 			if (mysqli_num_rows($resultado)>0) {
 				while($valor = mysqli_fetch_assoc($resultado)) {
 					$id_libro_devuelto = $valor["id_libro"];
-					$consulta = mysqli_query($connect, "UPDATE libros SET stock = stock+1 WHERE id= '$id_libro_devuelto'");
-					echo '<script>alert("Stock actualizado 😉👍")</script>';
+
+					$consulta = mysqli_query($connect, "UPDATE libros SET stock = stock+1 WHERE id=$id_libro_devuelto");
+					$consulta = mysqli_query($connect, "DELETE FROM reservas WHERE id=$id_reservaEliminar");
+
+					$contadorReservas++;
 				}
 			}
-			else{}
+			else 
+			{
+				echo '<script>alert("No se ha seleccionado ninguna reserva 🤷‍♂");</script>';
+			}
 
 		}
-		$contadorReservas =  sizeof($ids_reservasEliminar);
 
 		if($contadorReservas == 1)
-			echo "<script type='text/javascript'>alert('Reserva eliminada 😉👍');</script>";
-		else
-			echo "<script type='text/javascript'>alert('Reservas eliminadas 😉👍');</script>";
-		header('location: reservasActivas.php');
+		{
+			echo "<script>alert('Stock actualizado 😉👍');</script>";
+			echo "<script>alert('Reserva eliminada 😉👍');</script>";
+		}
+		else if ($contadorReservas > 1)
+		{
+			echo "<script>alert('Stocks actualizados 😉👍');</script>";
+			echo "<script>alert('Reservas eliminadas 😉👍');</script>";
+		}
+		echo "<script>window.location = 'reservasActivas.php';</script>";
 	}
 
 	else {

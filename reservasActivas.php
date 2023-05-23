@@ -114,7 +114,7 @@
 			<h1>Reservas activas:</h1>
 			<div class="form-container">
                 <?php
-                    $sql = "SELECT u.DNI, u.Nombre, u.Apellidos, l.Titulo, l.Autor, r.id, r.fecha_reserva, r.fecha_devolucion FROM reservas r INNER JOIN usuarios u ON u.id = r.id_usuario INNER JOIN libros l ON l.id = r.id_libro;";
+                    $sql = "SELECT u.DNI, u.Nombre, u.Apellidos, l.Titulo, l.Autor, r.id, DATE_FORMAT(r.fecha_reserva, 'El %d/%m/%Y a las %H:%i:%s') as fecha_reserva, DATE_FORMAT(r.fecha_devolucion, 'El %d/%m/%Y a las %H:%i:%s') as fecha_devolucion FROM reservas r INNER JOIN usuarios u ON u.id = r.id_usuario INNER JOIN libros l ON l.id = r.id_libro;";
                     $resultado = $connect->query($sql) or die(mysqli_error($connect)); 
                 ?>
                 <br>
@@ -133,9 +133,8 @@
                             while($valor = mysqli_fetch_assoc($resultado)) {
 
                                     echo "<tr><td align='center'>
-                                    <div class='form-check'>
-                                    <input class='form-check-input' type='checkbox' value='".$valor["id"]."' id='flexCheckDefault'>
-                                </div></td><td align='center'>" .$valor["DNI"]. "</td><td align='center'>".$valor["Nombre"]." ".$valor["Apellidos"]."</td><td align='center'>\"".$valor["Titulo"]."\" de ".$valor["Autor"]."</td><td align='center'>" .$valor["fecha_reserva"]."</td><td align='center'>" .$valor["fecha_devolucion"]."</td></tr>";
+                                    <input class='form-check-input' type='checkbox' value='".$valor["id"]."' name='checkboxReserva'>
+                                </td><td align='center'>" .$valor["DNI"]. "</td><td align='center'>".$valor["Nombre"]." ".$valor["Apellidos"]."</td><td align='center'>\"".$valor["Titulo"]."\" de ".$valor["Autor"]."</td><td align='center'>" .$valor["fecha_reserva"]."</td><td align='center'>" .$valor["fecha_devolucion"]."</td></tr>";
                             }
                         } else {
                             echo "<tr><td colspan='8' align='center'>0 resultados</td></tr>";
@@ -144,28 +143,44 @@
                     </tbody>
                 </table>
                 <form id="formEliminarReserva" action="consultas.php" method="POST">
-                    <label for="eliminarReserva">Pulse el botón para eliminar las reservas activas seleccionadas: </label>
-                    <input id="baja" name="eliminarReserva" class="boton_baja" value="Eliminar">
+                    <input type="hidden" name="arrayReservasEliminar" id="arrayReservasEliminar">
+                    <label for="btnEliminarReserva">Pulse el botón para eliminar las reservas activas seleccionadas: </label>
+                    <input id="btnEliminarReserva" name="btnEliminarReserva" type="submit" class="boton_baja" value="Eliminar">
                 </form>
             </div>
 		</div>
         <script>
-            $(document).ready(function() {
-                $('#formEliminarReserva').submit(function(event) {
-                    event.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
-                    
-                    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-                    var reservasEliminar = [];
-                    checkboxes.forEach(function(checkbox) {
-                        reservasEliminar.push(checkbox.value); //Recojo el valor del id de la reserva seleccionado y lo guardo en el array
-                    });
-                    
-                    $.ajax({
-                        url: 'consultas.php',
-                        type: 'POST',
-                        data: {idsReservasEliminar: reservasEliminar}
-                    });
+            const btnEliminarReserva = document.querySelector('#btnEliminarReserva');
+            const formEliminarReserva = document.querySelector('#formEliminarReserva');
+
+            btnEliminarReserva.addEventListener('click', (event) => {
+				// Prevenir el envío predeterminado del formulario
+				event.preventDefault();
+                
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                var reservasEliminar = [];
+                checkboxes.forEach(function(checkbox) {
+                    reservasEliminar.push(checkbox.value); //Recojo el valor del id de la reserva seleccionado y lo guardo en el array
                 });
+
+                if(reservasEliminar.length === 0){
+                    alert("No se ha seleccionado ninguna reserva 🤷‍♂");
+                }
+                else{
+
+                    // Mostrar un mensaje de confirmación y obtener la respuesta del usuario
+                    const confirmacion = confirm("¿Está seguro de que desea eliminar la reserva?");
+
+                    // Si el usuario confirma, enviar el formulario
+                    if (confirmacion) {
+                        // Convierte el array a formato JSON
+                        var datosReservasEliminar = JSON.stringify(reservasEliminar);
+                        // Asigna el valor JSON al campo oculto del formulario
+                        document.getElementById("arrayReservasEliminar").value = datosReservasEliminar;
+
+                        formEliminarReserva.submit();
+                    }
+                }
             });
         </script>
         <footer>
