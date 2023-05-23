@@ -29,10 +29,8 @@
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
-                position: float;
-                bottom: 0;
-                width: 100%;
-				position: fixed;
+                width: 100%; 
+				position: absolute;
             }
 
 			#pagUsuarios {
@@ -168,8 +166,8 @@
 					</table>
 				</div>
 			</div>
-            <footer>
-                &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
-            </footer>
 	</body>
+		<footer>
+			&copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
+   		</footer>
 </html>

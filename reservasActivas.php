@@ -29,10 +29,10 @@
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
-                position: float;
+                position: float; 
                 bottom: 0;
                 width: 100%;
-                position: fixed;
+                position: absolute;
             }
 
             #pagReservasActivas {
@@ -183,8 +183,8 @@
                 }
             });
         </script>
+	</body>
         <footer>
             &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
         </footer>
-	</body>
 </html>
