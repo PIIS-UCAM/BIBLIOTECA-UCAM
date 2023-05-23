@@ -29,10 +29,9 @@
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
-                position: float; 
                 bottom: 0;
                 width: 100%;
-                position: absolute;
+                position: fixed;
             }
 
             #pagReservasActivas {

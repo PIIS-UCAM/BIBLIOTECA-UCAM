@@ -9,7 +9,7 @@
         <title>Libros</title>
         <meta charset="utf-8">
         <style type="text/css">
-            body {
+     body {
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
@@ -21,16 +21,6 @@
                 font-size: 36px;
                 margin-bottom: 20px;
                 margin-left: 20px;
-            }
-
-            footer {
-                background-color: #002856;
-                padding: 20px;
-                text-align: center;
-                color: #fff;
-                font-size: 16px;
-                width: 100%;
-                position: absolute;
             }
 
             #pagLibros {
@@ -97,6 +87,7 @@
             .form-container {
                 margin-left: 20px;
 				margin-right: 20px;
+                padding-bottom: 2.5rem;
             }
 
             input[type="text"], input[type="number"], input[type="date"] {
@@ -105,6 +96,8 @@
 
             .content {
                 flex: 1;
+                position: relative;
+                min-height: 100vh;
             }
 
             footer {
@@ -113,7 +106,8 @@
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
-                width: 100%;
+                width: 100%; 
+                position: absolute;
             }
 
             .form-select {
