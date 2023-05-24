@@ -1,0 +1,86 @@
+/* Paleta de colores de la UCAM 
+    azul-oscuro: #002664;
+    azul-claro: #1B7CC7;
+    gris-oscuro: #52595D;
+    gris-claro: #E9E9E9;
+    amarillo: #E2A300; */
+
+body#indexBody {
+    background-size: 150% 150%; 
+    background-attachment: fixed; 
+    background-position: cover;
+}
+
+#formAcceso {
+    background: url('rsc/img/icon11.png'); 
+    background-position: center; 
+    background-size: 100% 100%; 
+    border-radius: 15px; 
+    text-align: center; 
+    z-index: 1000; 
+    margin: "0 auto";
+} 
+
+a {
+    color: #428bca;
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: 'mejor';
+    src: url('rsc/fonts/mejor.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'ink';
+    src: url('rsc/fonts/inkpen.ttf') format('truetype');
+}
+
+#tlf, #acceso, #salir, #correo {
+    font-family: 'mejor';
+}
+
+#usuario, strong {
+    font-family: 'mejor';
+}
+
+input[type="email"] {
+    background-color: transparent;
+}
+
+input[type="email"]:focus {
+    background-color: white;
+}
+
+@keyframes aparecedesaparece {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.menu{
+    -webkit-animation: aparecedesaparece 5s infinite; /* Safari 4+ */
+    -moz-animation: aparecedesaparece 5s infinite; /* Fx 5+ */
+    -o-animation:aparecedesaparece 5s infinite; /* Opera 12+ */
+    animation: aparecedesaparece 5s infinite; /* IE 10+, Fx 29+ */
+}
+
+/*fondo de la pagina index.php*/
+html.back_color{
+    background-color: #E9E9E9;
+} 
+
+/*letrero del index.php*/
+h.title.footer{
+    color: #1B7CC7;
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div.borderForm{
+    background-color: whitesmoke;
+    border: 3px hwb(240 8% 13%);
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+} 
+
