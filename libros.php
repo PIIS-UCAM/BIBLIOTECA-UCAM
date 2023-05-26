@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Libros</title>
+        <title>Panel de administración</title>
         <meta charset="utf-8">
         <style type="text/css">
             body {
@@ -86,7 +86,6 @@
 
             .form-container {
                 margin-left: 20px;
-				margin-right: 20px;
             }
 
             input[type="text"], input[type="number"], input[type="date"] {
@@ -99,18 +98,13 @@
 
             footer {
                 background-color: #002856;
-                padding: 20px 0px 10px 0px;
+                padding: 20px;
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
+                position: float;
+                bottom: 0;
                 width: 100%;
-                height: 40px;
-                position: absolute;
-                margin-top:50px;
-            }
-
-            .form-select {
-                margin-bottom: 10px;
             }
             
         </style>
@@ -125,21 +119,21 @@
                         <input required type="text" name="isbn" placeholder="ISBN"><br>
                         <input required type="text" name="titulo" placeholder="Título"><br>
                         <input required type="text" name="autor" placeholder="Autor"><br>
-                        <select required name="genero" class="form-select">
-                            <option value="" selected disabled hidden>Elija un género</option>
-                            <option value="ciencia ficción">Ciencia ficción</option>
-                            <option value="fantasía">Fantasía</option>
-                            <option value="terror">Terror</option>
-                            <option value="romance">Romance</option>
-                            <option value="drama">Drama</option>
-                            <option value="misterio">Misterio</option>
-                            <option value="aventuras">Aventuras</option>
-                            <option value="histórica">Histórica</option>
-                            <option value="infantil">Infantil</option>
-                            <option value="juvenil">Juvenil</option>
-                            <option value="poesía">Poesía</option>
-                            <option value="ensayo">Ensayo</option>
-                        </select><br>
+                            <select required name="genero" class="form-select">
+                                <option value="" selected disabled hidden>Elija un género</option>
+                                <option value="ciencia ficción">Ciencia ficción</option>
+                                <option value="fantasía">Fantasía</option>
+                                <option value="terror">Terror</option>
+                                <option value="romance">Romance</option>
+                                <option value="drama">Drama</option>
+                                <option value="misterio">Misterio</option>
+                                <option value="aventuras">Aventuras</option>
+                                <option value="histórica">Histórica</option>
+                                <option value="infantil">Infantil</option>
+                                <option value="juvenil">Juvenil</option>
+                                <option value="poesía">Poesía</option>
+                                <option value="ensayo">Ensayo</option>
+                            </select><br>
                         <input required type="text" name="editorial" placeholder="Editorial"><br>
                         <input required type="number" name="numpags" placeholder="Número de páginas"><br>
                         <input required type="number" name="stock" placeholder="Stock"><br>
@@ -183,9 +177,8 @@
         </div>
 		
     </div>
+	        <footer>
+                &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
+            </footer>
 </body>
-    <footer>
-        &copy; 
-        2023 Biblioteca UCAM. Todos los derechos reservados.
-    </footer>
 </html>  

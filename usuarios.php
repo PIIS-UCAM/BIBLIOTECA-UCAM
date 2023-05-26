@@ -24,15 +24,14 @@
             }
 
             footer {
-				background-color: #002856;
-                padding: 20px 0px 10px 0px;
+                background-color: #002856;
+                padding: 20px;
                 text-align: center;
                 color: #fff;
                 font-size: 16px;
+                position: float;
+                bottom: 0;
                 width: 100%;
-                height: 40px;
-                position: absolute;
-                margin-top:50px;
             }
 
 			#pagUsuarios {
@@ -98,7 +97,6 @@
 
             .form-container {
                 margin-left: 20px;
-				margin-right: 20px;
             }
 
             input[type="text"], input[type="date"], input[type="email"] {
@@ -119,9 +117,9 @@
 					<input required type="email" name="email" placeholder="Correo"><br>
 					<input required type="password" name="contrasenia" placeholder="Contraseña"><br><br>
 					<label for="fotoCarnet">Seleccionar foto de carnet:</label>
-					<input type="file" name="fotoCarnet" id="fotoCarnet" accept="image/*" required><br><br>
+					<input type="file" name="fotoCarnet" accept="image/*" required><br><br>
 					<label for="checkBoxPermisos">Conceder permisos de administrador/bibliotecario:</label>
-					<input type="checkbox" name="checkBoxPermisos" id="checkBoxPermisos"><br><br>
+					<input type="checkbox" name="checkBoxPermisos"><br><br>
 					<input type="submit" name="addUsuario" class="boton_alta" value="Alta" onclick="add()"><br><br>
 				</form>
 				<form name="form" action="consultas.php" method="POST">
@@ -168,8 +166,8 @@
 					</table>
 				</div>
 			</div>
+            <footer>
+                &copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
+            </footer>
 	</body>
-		<footer>
-			&copy; 2023 Biblioteca UCAM. Todos los derechos reservados.
-   		</footer>
 </html>

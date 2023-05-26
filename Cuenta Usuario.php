@@ -8,7 +8,7 @@
     <style> 
         body {
             font-family: Arial, sans-serif;
-            margin-left: 40%;
+            margin: 0;
             padding: 0;
             background-color: #f2f2f2;
         }
@@ -18,7 +18,11 @@
             font-size: 24px;
             margin-left: 20px;
         }
-        
+
+        .search-container {
+            margin-left: 20px;
+        }
+
         input[type="search"] {
             margin-bottom: 10px;
         }
@@ -33,7 +37,6 @@
             border: 2px solid #002664;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: 10%;
         }
 
         .btn_buscar:hover {

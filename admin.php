@@ -4,7 +4,7 @@
 ?>
 <html class="photo">
 	<head>
-		<title>Panel de administración de la biblioteca</title>
+		<title>Bienvenido!</title>
 		<style>
 			.photo{
 				background-image: url('rsc/imgs/bibliotecaucam.png');
@@ -50,7 +50,6 @@
 				<li><a href="index.php">Página de inicio</a></li>
 				<li id="pagLibros"><a href="libros.php">Libros</a></li>
 				<li id="pagUsuarios"><a href="usuarios.php">Usuarios</a></li>
-				<li id="pagReservasActivas"><a href="reservasActivas.php">Reservas activas</a></li>
 			</ul>
 		</nav> 
 	</body>

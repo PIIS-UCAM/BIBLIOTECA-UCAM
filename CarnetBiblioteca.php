@@ -201,8 +201,11 @@
 						<a href="biblioteca.php" class="active">Volver a la biblioteca</a>
 					</li>
 					<li>
-						<a href="">Reservas</a>
-					</li>
+					<a href="biblioteca.php">Libros</a>
+				</li>
+				<li>
+					<a href="reservas.php">Reservas</a>
+				</li>
 					<li>
 						<form name="form" id="formularioBaja" action="consultas.php" method="POST">
 							<input style="display: none;" type="text" name="id_baja" value="<?php echo $_SESSION['id_usuario']?>">

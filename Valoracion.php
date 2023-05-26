@@ -167,7 +167,10 @@
 					<a href="CarnetBiblioteca.php" class="active">Carnet de biblioteca</a>
 				</li>
 				<li>
-					<a href="biblioteca.php">Reservas</a>
+					<a href="biblioteca.php">Libros</a>
+				</li>
+				<li>
+					<a href="reservas.php">Reservas</a>
 				</li>
       <li>
 					<a href="Valoracion.php">Valoración de libros</a>

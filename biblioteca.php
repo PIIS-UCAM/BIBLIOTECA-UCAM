@@ -126,6 +126,7 @@
 				color:white;
 			}
 			
+			
 
 		</style> 
 		
@@ -151,7 +152,10 @@
 					<a href="CarnetBiblioteca.php" class="active">Carnet de biblioteca</a>
 				</li>
 				<li>
-					<a href="biblioteca.php">Reservas</a>
+					<a href="biblioteca.php">Libros</a>
+				</li>
+				<li>
+					<a href="reservas.php">Reservas</a>
 				</li>
       <li>
 					<a href="Valoracion.php">Valoración de libros</a>
@@ -183,6 +187,14 @@
 		</div> 
 
 		<?php
+
+			$id_usuario = $_SESSION['id_usuario'];
+			$sql_penalizacion = "SELECT fecha_de_penalizacion FROM usuarios WHERE id = $id_usuario";
+			$resultado_penalizacion = $connect->query($sql_penalizacion) or die(mysqli_error($connect));
+			$fecha_penalizacion = null;
+			if ($fila_penalizacion = mysqli_fetch_assoc($resultado_penalizacion)) {
+			$fecha_penalizacion = $fila_penalizacion['fecha_de_penalizacion'];
+			
 			$busquedalibro = $_POST["busquedalibro"]; 
 			if(isset($busquedalibro))
 				$sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false AND titulo LIKE '%$busquedalibro%'";
@@ -190,6 +202,9 @@
 				$sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false";
 			
 			$resultado = $connect->query($sql) or die(mysqli_error($connect));
+
+			
+}
 		?> 
 			<br>
 				<div class="container">
@@ -207,46 +222,53 @@
 						</thead> 
 						<tbody>
 				<?php
-					if (mysqli_num_rows($resultado)>0) {
-						while($valor = mysqli_fetch_assoc($resultado)) {
-							echo "<form id='formularioReserva' action='consultas.php' method='POST'>
-							<input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
-							<input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
-							<tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
-							<input type='submit' class='btn_reservar' value='Reservar' id='btnReserva' /></td></tr></form>";
-						}
+				
+
+				if (mysqli_num_rows($resultado)>0) {
+					$contador = 0;
+					while($valor = mysqli_fetch_assoc($resultado)) {
+						echo "<form id='formularioReserva$contador' action='consultas.php' method='POST'>
+						<input type='text' style='display: none;' name='id_usuario' value='".$_SESSION['id_usuario']."' />
+						<input type='text' style='display: none;' name='id_libro' value='".$valor["id"]."' />
+						<input type='text' style='display: none;' name='fecha_penalizacion' value='".$fecha_penalizacion."' />
+						<tr><td align='left'>".$valor["id"]. "</td><td align='left'>" .$valor["titulo"]. "</td><td align='left'>".$valor["autor"]."</td><td align='left'>" .$valor["genero"]. "</td><td align='left'>" .$valor["editorial"]."</td><td align='left'>" .$valor["numero_paginas"]. "</td><td align='left'>" .$valor["ISBN"]."</td><td align='left'>" .$valor["stock"]. "</td><td align='left'>
+						<input type='submit' class='btn_reservar' value='Reservar' id='btnReserva$contador' /></td></tr></form>";
+						$contador++;
+					}
 				?>
 		<script type="text/javascript">
+		const formulariosReserva = document.querySelectorAll('[id^="formularioReserva"]');
+		const botonesReserva = document.querySelectorAll('[id^="btnReserva"]');
 
-			const formularioReserva = document.querySelector('#formularioReserva');
-			const btnReserva = document.querySelector('#btnReserva');
-			const formularioBaja = document.querySelector('#formularioBaja');
-			const btnBaja =  document.querySelector('#btnBaja');
+			for (let i = 0; i < formulariosReserva.length; i++) {
+				botonesReserva[i].addEventListener('click', (event) => {
+					// Prevenir el envío predeterminado del formulario
+					event.preventDefault();
 
-			btnReserva.addEventListener('click', (event) => {
-				// Prevenir el envío predeterminado del formulario
-				event.preventDefault();
+					const fecha_reserva = new Date();
+					const fecha_devolucion = new Date();
+					const fecha_penalizacion = new Date(formulariosReserva[i].fecha_penalizacion.value);
+					if (fecha_penalizacion > fecha_reserva) {
+						alert("Tienes una penalización, no puedes reservar.");
+						return;
+					}
+					fecha_devolucion.setDate(fecha_devolucion.getDate() + 15);
+					let opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+					let fechaReservaFormateada = fecha_reserva.toLocaleDateString('es-ES', opciones);
+					let horaReservaFormateada = fecha_reserva.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
+					let fechaDevolucionFormateada = fecha_devolucion.toLocaleDateString('es-ES', opciones);
+					let horaDevolucionFormateada = fecha_devolucion.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
+					
+					// Mostrar un mensaje de confirmación y obtener la respuesta del usuario
+					const confirmacion = confirm(`¿Está seguro de que desea reservar el libro?\n- Fecha de reserva: ${fechaReservaFormateada} a las ${horaReservaFormateada}\n- Devolución antes del: ${fechaDevolucionFormateada} a las ${horaDevolucionFormateada}`);
 
-				const fecha_reserva = new Date();
-				const fecha_devolucion = new Date();
-				fecha_devolucion.setDate(fecha_devolucion.getDate() + 15);
-				let opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				let fechaReservaFormateada = fecha_reserva.toLocaleDateString('es-ES', opciones);
-				let horaReservaFormateada = fecha_reserva.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
-				let fechaDevolucionFormateada = fecha_devolucion.toLocaleDateString('es-ES', opciones);
-				let horaDevolucionFormateada = fecha_devolucion.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
-				
-				// Mostrar un mensaje de confirmación y obtener la respuesta del usuario
-				const confirmacion = confirm(`¿Está seguro de que desea reservar el libro?\n- Fecha de reserva: ${fechaReservaFormateada} a las ${horaReservaFormateada}\n- Devolución antes del: ${fechaDevolucionFormateada} a las ${horaDevolucionFormateada}`);
-
-				// Si el usuario confirma, enviar el formulario
-				if (confirmacion) {
-					formularioReserva.submit();
-				}
-
-			});
-
-		</script> 
+					// Si el usuario confirma, enviar el formulario
+					if (confirmacion) {
+						formulariosReserva[i].submit();
+					}
+				});
+			}
+</script>
 				<?php
 					} else {
 						echo "<tr><td colspan='9' align='center'>0 resultados</td></tr></tbody></table></div>";
