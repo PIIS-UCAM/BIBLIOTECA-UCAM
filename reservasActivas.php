@@ -21,6 +21,7 @@
                 font-size: 36px;
                 margin-bottom: 20px;
 				margin-left: 20px;
+                text-shadow: 2px 2px 4px #999;
             }
 
             footer {
@@ -33,44 +34,40 @@
                 width: 100%;
                 position: fixed;
                 margin-top:50px;
+                box-shadow: 0px -2px 4px #999;
             }
 
             #pagReservasActivas {
                 background-color: #E2A300;
             }
 
-			.boton_alta {
+			.boton_alta, .boton_baja {
 				text-decoration: none;
 				font-weight: bold;
 				font-size: 15px;
 				color: white;
 				padding: 5px 30px;
-				background-color: #002856;
-				border: 2px solid #002856;
+				border: none;
 				border-radius: 5px;
 				cursor: pointer;
+				transition: all 0.3s ease;
+                box-shadow: 2px 2px 4px #999;
 			}
+
+            .boton_alta {
+                background-color: #002856;
+            }
 
 			.boton_alta:hover {
 				background-color: #004691;
-				border-color: #004691;
 			}
 
-			.boton_baja {
-				text-decoration: none;
-				font-weight: bold;
-				font-size: 15px;
-				color: white;
-				padding: 5px 30px;
+            .boton_baja {
 				background-color: #E21B1B;
-				border: 2px solid #E21B1B;
-				border-radius: 5px;
-				cursor: pointer;
 			}
 
 			.boton_baja:hover {
 				background-color: #FF2E2E;
-				border-color: #FF2E2E;
 			}
 
             table {
@@ -78,6 +75,7 @@
                 width: 100%;
                 background-color: #fff;
                 margin-bottom: 50px;
+                box-shadow: 2px 2px 4px #999;
             }
 
             th, td {
@@ -103,6 +101,9 @@
 
             input[type="text"], input[type="date"], input[type="email"] {
                 margin-bottom: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                padding: 5px;
             }
 
 		</style>
