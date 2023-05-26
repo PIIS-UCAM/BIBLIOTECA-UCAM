@@ -79,7 +79,8 @@ CREATE TABLE `usuarios` (
   `Contrasenia` varchar(250) NOT NULL,
   `Fecha_de_expedicion` DATETIME NOT NULL,
   `Fecha_de_validez` DATETIME NOT NULL,
-  `Foto_de_carnet` MEDIUMBLOB NOT NULL
+  `Foto_de_carnet` MEDIUMBLOB NOT NULL,
+  `fecha_de_penalizacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
