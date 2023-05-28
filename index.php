@@ -106,10 +106,8 @@
             <label for="password">Contraseña:</label>
             <input placeholder="Introduzca su contraseña" required name="password" type="password"/>
             <label><input name="remember" type="checkbox" value="rememberYES" /> Recuérdame</label>
-            <button type="submit" name="enviar">Entrar</button><br>
+            <button type="submit" name="enviar">Entrar</button>
         </form>
-        <p>¿Aún no eres socio?<a style="font-size: 12px; color: #00427b;" href="registro.php"> <b><u>Regístrate aquí</u></b></a></p>
-        <p>¿Has olvidado tu contraseña?<a style="font-size: 12px; color: #00427b;" href="olvidado.php"> <b><u>Recupérala aquí</u></b></a></p>
     </div>
 
 	<script type="text/javascript">
