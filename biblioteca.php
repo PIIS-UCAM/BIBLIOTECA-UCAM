@@ -249,7 +249,7 @@
 					const fecha_devolucion = new Date();
 					const fecha_penalizacion = new Date(formulariosReserva[i].fecha_penalizacion.value);
 					if (fecha_penalizacion > fecha_reserva) {
-						alert("Tienes una penalización, no puedes reservar.");
+						alert(`Tienes una penalización hasta el ${fecha_penalizacion.toLocaleDateString('es-ES')} , no puedes reservar.`);
 						return;
 					}
 					fecha_devolucion.setDate(fecha_devolucion.getDate() + 15);
