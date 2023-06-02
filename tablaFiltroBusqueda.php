@@ -97,6 +97,7 @@
         $busqueda_genero = $_POST['busqueda_genero'];
         //echo $busqueda_genero;
         $busqueda_valoracion = $_POST['valoracion'];
+        //echo $busqueda_valoracion;
         
         if(!empty($busqueda_general)){
           $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = false AND isbn LIKE '%$busqueda_general%' OR autor LIKE '%$busqueda_general%' OR titulo LIKE '%$busqueda_general%' OR genero LIKE '%$busqueda_general%' OR editorial LIKE '%$busqueda_general%'";
@@ -119,7 +120,7 @@
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else if(!empty($busqueda_valoracion)){
-          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE reservado = true AND media >= $busqueda_valoracion";
+          $sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN, media FROM libros WHERE media >= '$busqueda_valoracion'";
           $resultado = $connect->query($sql) or die(mysqli_error($connect));
         }
         else{

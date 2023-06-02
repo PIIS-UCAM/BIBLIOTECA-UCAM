@@ -117,8 +117,12 @@
 				cursor: pointer;
 			}
 
-			.star:hover, .star.hover {
+			.rating:hover .star {
 				color: #ffc107;
+			}
+
+			.rating:hover .star:hover ~ .star {
+				color: #ccc;
 			}
 
 			.star.selected {
@@ -205,7 +209,7 @@
 					?> 
 						<br>
 							<div class="container">
-								<table class="table table-striped table-hover">
+								<table class="table table-striped table-hover" style="width: 100%; text-align:center; margin-left: auto; margin-right: auto;">
 									<thead>
 										<th scope="col">Id</th>
 										<th scope="col">Título</th>
@@ -234,30 +238,24 @@
 						<input type="hidden" name="id_usuario_valoracion" value="<?php echo $_SESSION['id_usuario'] ?>" />
 						<input type="hidden" name="id_libro_valoracion" value="<?php echo $id ?>" />
 						<tr>
-							<td align="left"><?php echo $id ?></td>
-							<td align="left"><?php echo $titulo ?></td>
-							<td align="left"><?php echo $autor ?></td>
-							<td align="left"><?php echo $genero ?></td>
-							<td align="left"><?php echo $editorial ?></td>
-							<td align="left"><?php echo $numero_paginas ?></td>
-							<td align="left"><?php echo $ISBN ?></td>
-							<td align="left"><?php echo $stock ?></td>
-							<td align="left">
+							<td align="center"><?php echo $id ?></td>
+							<td align="center"><?php echo $titulo ?></td>
+							<td align="center"><?php echo $autor ?></td>
+							<td align="center"><?php echo $genero ?></td>
+							<td align="center"><?php echo $editorial ?></td>
+							<td align="center"><?php echo $numero_paginas ?></td>
+							<td align="center"><?php echo $ISBN ?></td>
+							<td align="center"><?php echo $stock ?></td>
+							<td align="center">
 							
 								<div class="rating">
-									<span class="star" data-value="1">&#9733;</span>
-									<span class="star" data-value="2">&#9733;</span>
-									<span class="star" data-value="3">&#9733;</span>
-									<span class="star" data-value="4">&#9733;</span>
-									<span class="star" data-value="5">&#9733;</span>
+									<span class="star" data-value="1" onclick="setRating(this)">&#9733;</span>
+									<span class="star" data-value="2" onclick="setRating(this)">&#9733;</span>
+									<span class="star" data-value="3" onclick="setRating(this)">&#9733;</span>
+									<span class="star" data-value="4" onclick="setRating(this)">&#9733;</span>
+									<span class="star" data-value="5" onclick="setRating(this)">&#9733;</span>
 									<input required type="hidden" name="valoracion" class="star-value" value="">
 								</div>
-
-							</td>
-						</tr>
-						<tr>
-							<td colspan="9">
-								<br>
 								<textarea type="text" name="comentario" style="width: 100%;" placeholder="Ingrese su comentario aquí"  rows="5" cols="50"></textarea><br><br>
 								<button type="submit" name="enviar" >Enviar</button>
 							</td>
@@ -270,6 +268,10 @@
 				echo "<tr><td colspan='10' align='center'>0 resultados</td></tr>";
 			}
 			?>
+
+			</tbody>
+			</table>
+			</div>
 
 			<?php
 
@@ -287,10 +289,21 @@
 					mysqli_stmt_bind_param($stmt, 'isii', $valoracion, $comentario, $id_usuario, $id_libro);
 					mysqli_stmt_execute($stmt);
 
+					$sql = "SELECT COUNT(*) as conteoReservasPuntuadas FROM reservas WHERE id_libro = $id_libro AND valoracion IS NOT NULL";
+					$result = $connect->query($sql);
+
+					if ($result->num_rows > 0) {
+						// Obtener el resultado de la consulta
+						$row = $result->fetch_assoc();
+						$conteoReservasPuntuadas = $row["conteoReservasPuntuadas"];
+					} else {
+						$conteoReservasPuntuadas = 0;
+					}
+
 					// Actualización de la tabla "libros"
-					$sql = "UPDATE libros SET contador = contador + 1, sumatorio = sumatorio + ? WHERE id = ?";
+					$sql = "UPDATE libros SET contador = ?, sumatorio = sumatorio + ? WHERE id = ?";
 					$stmt = mysqli_prepare($connect, $sql);
-					mysqli_stmt_bind_param($stmt, 'ii', $valoracion, $id_libro);
+					mysqli_stmt_bind_param($stmt, 'iii', $conteoReservasPuntuadas, $valoracion, $id_libro);
 					mysqli_stmt_execute($stmt);
 
 					$sql = "UPDATE libros SET media = sumatorio/contador WHERE id = ?";
@@ -301,41 +314,39 @@
 					mysqli_close($connect);
 
 					echo "<script type='text/javascript'>alert('Valoración añadida 😉👍');</script>";
+
 				}
 			?>
 			
 	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-		const stars = document.querySelectorAll('.star');
-		const starValue = document.querySelector('.star-value');
-		stars.forEach((star, index) => {
-			star.addEventListener('click', function () {
-			const ratingValue = this.getAttribute('data-value');
-			starValue.value = ratingValue;
-			stars.forEach((s, i) => {
-				if (i < index + 1) {
-				s.classList.add('selected');
-				} else {
-				s.classList.remove('selected');
-				}
-			});
-			});
+		function setRating(star) {
+			const ratingValue = star.getAttribute('data-value');
+			const starValue = star.parentNode.querySelector('.star-value');
+			const stars = star.parentNode.querySelectorAll('.star');
 
-			star.addEventListener('mouseover', function () {
-			stars.forEach((s, i) => {
-				if (i <= index) {
-				s.classList.add('hover');
+			starValue.value = ratingValue;
+
+			stars.forEach(function(s) {
+				if (parseInt(s.getAttribute('data-value')) <= parseInt(ratingValue)) {
+					s.classList.add('selected');
 				} else {
-				s.classList.remove('hover');
+					s.classList.remove('selected');
 				}
 			});
+		}
+
+		document.addEventListener('DOMContentLoaded', function () {
+			const forms = document.querySelectorAll('form');
+
+			forms.forEach(function (form) {
+				const stars = form.querySelectorAll('.star');
+
+				stars.forEach(function (star) {
+					star.addEventListener('click', function () {
+						setRating(this);
+					});
+				});
 			});
-			star.addEventListener('mouseout', function () {
-			stars.forEach(s => {
-				s.classList.remove('hover');
-			});
-			});
-		});
 		});
 	</script>
 
