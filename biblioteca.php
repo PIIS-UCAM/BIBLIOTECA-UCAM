@@ -187,11 +187,27 @@
 		</div> 
 
 		<?php
+			$id_usuario = $_SESSION['id_usuario'];
+			$fecha_maxima = null;
+			$sql_fecha_max = "SELECT IFNULL(MIN(fecha_devolucion), DATE_ADD(NOW(), INTERVAL 1 DAY)) AS fecha_maxima FROM reservas WHERE id_usuario = $id_usuario";
+			$resultado_fecha_max = $connect->query($sql_fecha_max) or die(mysqli_error($connect));
+			
+			if ($resultado_fecha_max->num_rows > 0) {
+				if ($fila_maxima = mysqli_fetch_assoc($resultado_fecha_max)) {
+					$fecha_maxima = $fila_maxima['fecha_maxima'];
+					$fecha_maxima = date("c", strtotime($fecha_maxima));
+				}
+			}
+		?>		
+
+		<?php
 
 			$id_usuario = $_SESSION['id_usuario'];
 			$sql_penalizacion = "SELECT fecha_de_penalizacion FROM usuarios WHERE id = $id_usuario";
 			$resultado_penalizacion = $connect->query($sql_penalizacion) or die(mysqli_error($connect));
 			$fecha_penalizacion = null;
+			
+
 			if ($fila_penalizacion = mysqli_fetch_assoc($resultado_penalizacion)) {
 			$fecha_penalizacion = $fila_penalizacion['fecha_de_penalizacion'];
 			
@@ -202,6 +218,11 @@
 				$sql = "SELECT id, titulo, autor, genero, editorial, numero_paginas, stock, ISBN FROM libros WHERE reservado = false";
 			
 			$resultado = $connect->query($sql) or die(mysqli_error($connect));
+
+
+	
+				
+			
 
 			
 }
@@ -236,38 +257,52 @@
 						$contador++;
 					}
 				?>
-		<script type="text/javascript">
-		const formulariosReserva = document.querySelectorAll('[id^="formularioReserva"]');
-		const botonesReserva = document.querySelectorAll('[id^="btnReserva"]');
 
-			for (let i = 0; i < formulariosReserva.length; i++) {
-				botonesReserva[i].addEventListener('click', (event) => {
-					// Prevenir el envío predeterminado del formulario
-					event.preventDefault();
 
-					const fecha_reserva = new Date();
-					const fecha_devolucion = new Date();
-					const fecha_penalizacion = new Date(formulariosReserva[i].fecha_penalizacion.value);
-					if (fecha_penalizacion > fecha_reserva) {
-						alert(`Tienes una penalización hasta el ${fecha_penalizacion.toLocaleDateString('es-ES')} , no puedes reservar.`);
-						return;
-					}
-					fecha_devolucion.setDate(fecha_devolucion.getDate() + 15);
-					let opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-					let fechaReservaFormateada = fecha_reserva.toLocaleDateString('es-ES', opciones);
-					let horaReservaFormateada = fecha_reserva.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
-					let fechaDevolucionFormateada = fecha_devolucion.toLocaleDateString('es-ES', opciones);
-					let horaDevolucionFormateada = fecha_devolucion.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
-					
-					// Mostrar un mensaje de confirmación y obtener la respuesta del usuario
-					const confirmacion = confirm(`¿Está seguro de que desea reservar el libro?\n- Fecha de reserva: ${fechaReservaFormateada} a las ${horaReservaFormateada}\n- Devolución antes del: ${fechaDevolucionFormateada} a las ${horaDevolucionFormateada}`);
+			
+<script type="text/javascript">
+    const formulariosReserva = document.querySelectorAll('[id^="formularioReserva"]');
+    const botonesReserva = document.querySelectorAll('[id^="btnReserva"]');
+    
+   
+    
+    for (let i = 0; i < formulariosReserva.length; i++) {
+        botonesReserva[i].addEventListener('click', (event) => {
+            // Prevenir el envío predeterminado del formulario
+            event.preventDefault();
+			const fecha_maxima = new Date(<?php echo json_encode($fecha_maxima) ?: 'new Date().toISOString()'; ?>);
+            const fecha_sistema = new Date();
+            const fecha_reserva = new Date();
+            const fecha_devolucion = new Date();
+            const fecha_penalizacion = new Date(formulariosReserva[i].fecha_penalizacion.value);
+            const fechasDevolucionReservas = [];
+            
+			if (fecha_sistema > fecha_maxima) {
+                alert(`Tienes una reserva que tendrias que haber devuelto el ${fecha_maxima.toLocaleDateString('es-ES')} , no puedes reservar hasta que la devuelvas.`);
+                return;
+            }
 
-					// Si el usuario confirma, enviar el formulario
-					if (confirmacion) {
-						formulariosReserva[i].submit();
-					}
-				});
-			}
+            if (fecha_penalizacion > fecha_reserva) {
+                alert(`Tienes una penalización hasta el ${fecha_penalizacion.toLocaleDateString('es-ES')} , no puedes reservar.`);
+                return;
+            }
+            
+            fecha_devolucion.setDate(fecha_devolucion.getDate() + 15);
+            let opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let fechaReservaFormateada = fecha_reserva.toLocaleDateString('es-ES', opciones);
+            let horaReservaFormateada = fecha_reserva.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
+            let fechaDevolucionFormateada = fecha_devolucion.toLocaleDateString('es-ES', opciones);
+            let horaDevolucionFormateada = fecha_devolucion.toLocaleString('es-ES', { hour: 'numeric', minute: 'numeric' });
+            
+            // Mostrar un mensaje de confirmación y obtener la respuesta del usuario
+            const confirmacion = confirm(`¿Está seguro de que desea reservar el libro?\n- Fecha de reserva: ${fechaReservaFormateada} a las ${horaReservaFormateada}\n- Devolución antes del: ${fechaDevolucionFormateada} a las ${horaDevolucionFormateada}`);
+            
+            // Si el usuario confirma, enviar el formulario
+            if (confirmacion) {
+                formulariosReserva[i].submit();
+            }
+        });
+    }
 </script>
 				<?php
 					} else {
